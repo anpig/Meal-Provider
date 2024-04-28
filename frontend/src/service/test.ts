@@ -1,8 +1,9 @@
 export default class TestService {
-    static async testApi() {
+    static async testApi(): Promise<any> {
       const response = await fetch('/test')
-      console.log(response)
-      return response.json()
+      const result = await response.json()
+
+      return result
     }
   }
   

@@ -23,7 +23,7 @@ export default defineConfig({
     }
   },
   server: {
-    port: 4000,
+    port: 3000,
     // https://vitejs.dev/config/server-options.html#server-proxy
     // forward /api to a backend server on http://localhost:9487
     proxy: {
