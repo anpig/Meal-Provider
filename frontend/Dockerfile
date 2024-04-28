@@ -1,15 +1,19 @@
-FROM node:14
+FROM node:lts-alpine
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN npm install -g http-server
+RUN npm install -g pnpm
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN pnpm install
+COPY . . 
 
-COPY . .
 
-RUN npm run build
-
-CMD ["npm", "start"]
+RUN pnpm run build
 
 EXPOSE 3000
+CMD ["http-server", "dist", "-p", "3000"]
