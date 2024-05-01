@@ -29,9 +29,12 @@
   </el-table>
 
   <br />
-  <div class="flex-container">
-    <el-button type="primary" @click="addItemToChart">查詢最佳組合</el-button>
-  </div>
+
+  <el-button type="primary" @click="addItemToChart">查詢最佳組合</el-button>
+
+  <el-button @click="click()"> 
+    show api
+  </el-button>
 </template>
 
 <style>
@@ -46,6 +49,7 @@
 import { reactive } from 'vue'
 import { useCouponStore } from '@/store/coupon'
 import { storeToRefs } from 'pinia'
+import test from '@/service/test'
 const couponStore = useCouponStore()
 
 const { charts } = storeToRefs(couponStore)
@@ -72,5 +76,11 @@ const removeItem = (x: number) => {
 }
 const handleDelete = (x: number, row: any) => {
   console.log(x, row)
+}
+
+const click = async () => {
+  const data = await test.testApi()
+  console.log(data)
+  alert('You receive data ' + data.message)
 }
 </script>

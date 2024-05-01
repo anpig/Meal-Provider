@@ -12,8 +12,12 @@ COPY package*.json ./
 RUN pnpm install
 COPY . . 
 
-
 RUN pnpm run build
 
+FROM docker.io/nginx:1.21.1-alpine
+WORKDIR /www
+COPY --from=0 /app/dist /www
+
+COPY conf.d/* /etc/nginx/conf.d/
+
 EXPOSE 3000
-CMD ["http-server", "dist", "-p", "3000"]
