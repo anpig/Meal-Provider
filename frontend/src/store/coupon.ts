@@ -13,6 +13,6 @@ export const useCouponStore = defineStore({
     },
     removeItem(index: number) {
       this.charts.splice(index, 1)
-    },
+    }
   }
 })

@@ -32,9 +32,7 @@
 
   <el-button type="primary" @click="addItemToChart">查詢最佳組合</el-button>
 
-  <el-button @click="click()"> 
-    show api
-  </el-button>
+  <el-button @click="click()"> show api </el-button>
 </template>
 
 <style>
