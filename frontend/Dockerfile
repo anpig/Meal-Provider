@@ -1,15 +1,23 @@
-FROM node:14
+FROM node:lts-alpine
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN npm install -g http-server
+RUN npm install -g pnpm
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN pnpm install
+COPY . . 
 
-COPY . .
+RUN pnpm run build
 
-RUN npm run build
+FROM docker.io/nginx:1.21.1-alpine
+WORKDIR /www
+COPY --from=0 /app/dist /www
 
-CMD ["npm", "start"]
+COPY conf.d/* /etc/nginx/conf.d/
 
 EXPOSE 3000
