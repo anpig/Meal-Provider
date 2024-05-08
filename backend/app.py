@@ -19,8 +19,8 @@ db.init_app(app)
 
 @app.route('/login', methods=['POST'])
 def login():
-    account = request.form.get("user_account")
-    password = request.form.get("user_password")
+    account = request.get_json().get("user_account")
+    password = request.get_json().get("user_password")
     staff = Staff_Information.query.filter_by(Gmail=account, Password=password).first()
     if staff is None:
         return jsonify({'outh_token': "", 'user_identity': "invalid_user"})
