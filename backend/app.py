@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from models import db, Staff_Information
+from models import db, Staff_Info, Dish_Info, Restaurant_Info, Order_Dish, Orders
 import pymysql
 import dotenv
 import os
@@ -21,7 +21,7 @@ db.init_app(app)
 def login():
     account = request.get_json().get("user_account")
     password = request.get_json().get("user_password")
-    staff = Staff_Information.query.filter_by(Gmail=account, Password=password).first()
+    staff = Staff_Info.query.filter_by(Gmail=account, Password=password).first()
     if staff is None:
         return jsonify({'outh_token': "", 'user_identity': "invalid_user"})
     return jsonify({'outh_token': "", 'user_identity': staff.Position})
