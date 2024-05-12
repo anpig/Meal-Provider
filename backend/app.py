@@ -1,10 +1,8 @@
-from flask import Flask, jsonify, request, redirect, url_for, abort
+from flask import Flask, jsonify, request, abort
 from models import db, Staff_Info, Dish_Info, Restaurant_Info, Order_Dish, Orders
 import pymysql
-from json import dumps
 import dotenv
 import os
-from collections import OrderedDict
 
 dotenv.load_dotenv()
 app = Flask(__name__)
@@ -31,11 +29,6 @@ def login():
     if staff is None:
         return jsonify({'outh_token': "", 'user_identity': "invalid_user"})
     return jsonify({'outh_token': "", 'user_identity': staff.Position})
-
-@app.route('/', methods=['GET'])
-def index():
-    # just for testing
-    return redirect(url_for('static', filename='restaurant/kfc.png'))
 
 @app.route('/restaurant/<id>', methods=['GET'])
 def get_restaurant_info(id):
