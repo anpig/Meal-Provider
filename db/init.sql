@@ -4,15 +4,15 @@ CREATE TABLE Staff_Info (
     Position VARCHAR(255),
     Gmail VARCHAR(255),
     Password VARCHAR(255),
-    PhoneNumber BIGINT
+    PhoneNumber VARCHAR(20)
 );
 INSERT INTO Staff_Info (StaffID, StaffName, Position, Gmail, Password, PhoneNumber) VALUES 
-    (100001, 'ycy.yo', 'restaurant', 'ycy.yo@gmail.com', 'test', 0909090909), 
-    (100002, 'amber chen', 'admin', 'hello@world', 'test', 0910101010),
-    (100003, 'whoami', 'worker', 'who@ami', 'test', 0911111111),
-    (100004, 'benson', 'worker', 'benson@gmail.com', 'test', 0912345678),
-    (100005, 'detaomega', 'worker', 'detaomega@gmail.com', 'test', 0912345678),
-    (100006, 'BruceLin', 'worker', 'bruce@gmail.com', 'test', 0943134344);
+    (100001, 'ycy.yo', 'restaurant', 'ycy.yo@gmail.com', 'test', '0909090909'), 
+    (100002, 'amber chen', 'admin', 'hello@world', 'test', '0910101010'),
+    (100003, 'whoami', 'worker', 'who@ami', 'test', '0911111111'),
+    (100004, 'benson', 'worker', 'benson@gmail.com', 'test', '0912345678'),
+    (100005, 'detaomega', 'worker', 'detaomega@gmail.com', 'test', '0912345678'),
+    (100006, 'BruceLin', 'worker', 'bruce@gmail.com', 'test', '0943134344');
 
 CREATE TABLE Dish_Info(
     DishID BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -27,20 +27,20 @@ CREATE TABLE Dish_Info(
 );
 
 INSERT INTO Dish_Info (RestaurantID, Name, Description, Picture, Price, Available, TimesOfOrder, Rating) VALUES
-    (1, "Fried Chicken", "Delicious", "jfjrop.jpg", 200, TRUE, 0, 4.5),
-    (1, "Hamburger", "Delicious", "grgrgf.jpg", 150, TRUE, 0, 4.5),
-    (1, "French Fries", "Delicious", "jfjrop.jpg", 100, TRUE, 0, 4.5),
-    (2, "Cookie", "Delicious", "jfjrop.jpg", 30, TRUE, 0, 4.5),
-    (2, "Veggie Delite", "Delicious", "jfjrop.jpg", 150, FALSE, 0, 4.5),
-    (2, "Tuna", "Delicious", "jfjrop.jpg", 170, TRUE, 0, 4.5),
-    (3, "Pepperoni Pizza", "Delicious", "jfjrop.jpg", 200, TRUE, 0, 4.5),
-    (3, "Hawaiian Pizza", "Delicious", "jfjrop.jpg", 150, TRUE, 0, 4.5),
-    (3, "Cheese Pizza", "Delicious", "jfjrop.jpg", 100, FALSE, 0, 4.5);
+    (1, "Fried Chicken", "Delicious", "chicken.jpg", 200, TRUE, 0, 4.5),
+    (1, "Hamburger", "Delicious", "chicken.jpg", 150, TRUE, 0, 4.5),
+    (1, "French Fries", "Delicious", "chicken.jpg", 100, TRUE, 0, 4.5),
+    (2, "Cookie", "Delicious", "chicken.jpg", 30, TRUE, 0, 4.5),
+    (2, "Veggie Delite", "Delicious", "chicken.jpg", 150, FALSE, 0, 4.5),
+    (2, "Tuna", "Delicious", "chicken.jpg", 170, TRUE, 0, 4.5),
+    (3, "Pepperoni Pizza", "Delicious", "chicken.jpg", 200, TRUE, 0, 4.5),
+    (3, "Hawaiian Pizza", "Delicious", "chicken.jpg", 150, TRUE, 0, 4.5),
+    (3, "Cheese Pizza", "Delicious", "chicken.jpg", 100, FALSE, 0, 4.5);
 
 CREATE TABLE Restaurant_Info (
     RestaurantID BIGINT PRIMARY KEY AUTO_INCREMENT,
     RestaurantName VARCHAR(255),
-    PhoneNumber BIGINT,
+    PhoneNumber VARCHAR(20),
     OpenTime TIME,
     CloseTime TIME,
     Description VARCHAR(1000),
@@ -49,9 +49,9 @@ CREATE TABLE Restaurant_Info (
 );
 
 INSERT INTO Restaurant_Info  (RestaurantName, PhoneNumber, OpenTime, CloseTime, Description, Picture, Rating) VALUES 
-    ('KFC', 0912345678, '12:00:00', '22:00:00', 'Fast Food Restaurant', 'hriehfi.jpg', 4.3),
-    ('Subway', 0912345678, '08:00:00', '22:00:00', 'Sandwich', 'herhie.jpg', 5.0),
-    ('Pizza Hut', 0912345678, '08:00:00', '22:00:00', 'Pizza', 'whdniww.jpg', 3.9);
+    ('KFC', '0912345678', '12:00:00', '22:00:00', 'Fast Food Restaurant', 'kfc.png', 4.3),
+    ('Subway', '0912345678', '08:00:00', '22:00:00', 'Sandwich', 'kfc.png', 5.0),
+    ('Pizza Hut', '0912345678', '08:00:00', '22:00:00', 'Pizza', 'kfc.png', 3.9);
 
 
 CREATE TABLE Order_Dish( -- time to take the meal?
