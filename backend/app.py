@@ -1,30 +1,22 @@
-from flask import Flask, jsonify, request
-from models import db, Staff_Information
-import pymysql
-import dotenv
-import os
+from flask import Flask, jsonify
+from model.models import db
+from route.routes import bp_root, bp_main
 
-dotenv.load_dotenv()
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('config')
+    # flask 2.3x remove buildin config value JSON_SORT_KEYS, so it cannot be set in config.py
+    app.json.sort_keys = False 
+    db.init_app(app)
+    return app
 
-db_user = os.getenv("MYSQL_USER")
-db_password = os.getenv("MYSQL_PASSWORD")
-db_host = os.getenv("MYSQL_HOST")
-db_port = os.getenv("MYSQL_PORT")
-db_name = os.getenv("MYSQL_DATABASE")
+app = create_app()
+app.register_blueprint(bp_root, url_prefix='')
+app.register_blueprint(bp_main, url_prefix='/main')
 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
-db.init_app(app)
-
-@app.route('/login', methods=['POST'])
-def login():
-    account = request.form.get("user_account")
-    password = request.form.get("user_password")
-    staff = Staff_Information.query.filter_by(Gmail=account, Password=password).first()
-    if staff is None:
-        return jsonify({'outh_token': "", 'user_identity': "invalid_user"})
-    return jsonify({'outh_token': "", 'user_identity': staff.Position})
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'error': 'Resource Not found'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5000)
