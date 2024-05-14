@@ -22,7 +22,7 @@
 
 ## POS page (for restaurant)
 ### get menu
-> to do
+> done
 - endpoint: `/pos/menu`
 - method: GET
 - response
@@ -37,7 +37,8 @@
                 "price": 200,
                 "rating": 4.5,
                 "order_times": 0,
-                "picture": "/static/dish/chicken.png"
+                "picture": "/static/dish/chicken.png",
+                "available": 1
             },
             {
                 "dish_id": 2,
@@ -46,7 +47,8 @@
                 "price": 150,
                 "rating": 4.5,
                 "order_times": 0,
-                "picture": "/static/dish/chicken.png"
+                "picture": "/static/dish/chicken.png",
+                "available": 1
             }
         ]
 }
