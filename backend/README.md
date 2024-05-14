@@ -58,7 +58,21 @@
 - endpoint: `/pos/add_dish`
 - method: POST
 - request body
+```
+{
+    "name": ,
+    "description": ,
+    "picture_filename": , // upload picture first to get filename
+    "price": ,
+}
+```
 - response
+```
+{
+    "status": "success|fail",
+    "dish_id": 
+}
+```
 
 ### upload picture of a dish
 > to do
@@ -86,7 +100,7 @@
 ```
 ### get review
 > to do
-- endpoint: `/pos/review/<id>`
+- endpoint: `/pos/review`
 - method: GET
 - response
 ```

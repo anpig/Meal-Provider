@@ -1,11 +1,10 @@
 from flask import request, jsonify
-from model.models import Dish_Info
+from model.models import Dish_Info, db
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
 
 @jwt_required()
 def get_menu():
-    # obtain from JWT, for now, hard code for testing
     if not check_permission('restaurant'):
         return jsonify({'error': 'Permission Denied'}), 403
     restaurant_id = get_restaurant_id()
@@ -23,3 +22,30 @@ def get_menu():
             "available": dish.Available
         })
     return jsonify({'meals': menu})
+
+@jwt_required()
+def add_dish():
+    if not check_permission('restaurant'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    restaurant_id = get_restaurant_id()
+    dish_name = request.get_json().get('name')
+    description = request.get_json().get('description')
+    price = request.get_json().get('price')
+    filename = request.get_json().get('picture')
+
+    # TODO: check if the file has been uploaded
+    picture_exist = True
+    if not picture_exist:
+        return jsonify({'error': 'Picture has not been uploaded'})
+
+    new_dish = Dish_Info(
+        Name=dish_name, Description=description, 
+        Price=price, Picture=filename, 
+        RestaurantID=restaurant_id,
+        Available=True, Rating=0, TimesOfOrder=0
+
+    )
+    db.session.add(new_dish)
+    db.session.commit()
+    return jsonify({'status': 'success'})
+    
