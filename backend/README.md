@@ -54,7 +54,7 @@
 }
 ```
 ### add dish
-> to do
+> done
 - endpoint: `/pos/add_dish`
 - method: POST
 - request body
@@ -83,7 +83,8 @@
 ```
 {
     "status": "success|fail",
-    "filename": ""
+    "filename": "", // if status is success
+    "error": "error msg" // if status is fail
 }
 ```
 ### upload cover picture of the restaurant

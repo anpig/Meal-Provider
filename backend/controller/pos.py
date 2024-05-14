@@ -1,7 +1,15 @@
 from flask import request, jsonify
+from random import shuffle
 from model.models import Dish_Info, db
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
+import os
+
+UPLOAD_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in UPLOAD_ALLOWED_EXTENSIONS
 
 @jwt_required()
 def get_menu():
@@ -49,3 +57,27 @@ def add_dish():
     db.session.commit()
     return jsonify({'status': 'success'})
     
+# @jwt_required()
+def upload_picture(type):
+    # if not check_permission('restaurant'):
+    #     return jsonify({'error': 'Permission Denied'}), 403
+   
+    # error handling
+    # if 'file' not in request.files:
+    #     return jsonify({'status': 'fail', 'error': 'No file part'})
+    if type not in ['cover', 'dish']:
+        return jsonify({'status': 'fail', 'error': 'Invalid type'})
+    if not allowed_file(request.files['image'].filename):
+        return jsonify({'status': 'fail', 'error': 'Invalid file type'})
+    
+    file = request.files['image']
+    if file.filename == '':
+        return jsonify({'status': 'fail', 'error': 'No selected file'})
+
+    filename = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+    shuffle(filename)
+    filename = ''.join(filename[:10]) + '.' + file.filename.split('.')[-1]
+    path = os.path.join('static', type, filename)
+    file.save(path)
+    
+    return jsonify({'status': 'success', 'filename': filename})
