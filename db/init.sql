@@ -7,9 +7,9 @@ CREATE TABLE Staff_Info (
     PhoneNumber VARCHAR(20)
 );
 INSERT INTO Staff_Info (StaffID, StaffName, Position, Gmail, Password, PhoneNumber) VALUES 
-    (100001, 'ycy.yo', 'restaurant', 'ycy.yo@gmail.com', 'test', '0909090909'), 
+    (100001, 'ycy.yo', 'restaurant_1', 'ycy.yo@gmail.com', 'test', '0909090909'), 
     (100002, 'amber chen', 'admin', 'hello@world', 'test', '0910101010'),
-    (100003, 'whoami', 'worker', 'who@ami', 'test', '0911111111'),
+    (100003, 'whoami', 'restaurant_2', 'who@ami', 'test', '0911111111'),
     (100004, 'benson', 'worker', 'benson@gmail.com', 'test', '0912345678'),
     (100005, 'detaomega', 'worker', 'detaomega@gmail.com', 'test', '0912345678'),
     (100006, 'BruceLin', 'worker', 'bruce@gmail.com', 'test', '0943134344');

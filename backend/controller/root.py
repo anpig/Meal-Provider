@@ -7,7 +7,10 @@ def login():
     staff = Staff_Info.query.filter_by(Gmail=account, Password=password).first()
     if staff is None:
         return jsonify({'outh_token': "", 'user_identity': "invalid_user"})
-    return jsonify({'outh_token': "", 'user_identity': staff.Position})
+    if staff.Position.find("restaurant") == -1:
+        return jsonify({'outh_token': "", 'user_identity': staff.Position})
+    else:
+        return jsonify({'outh_token': "", 'user_identity': "restaurant", 'restaurant_id': staff.Position.split('_')[1]})
 
 def ping():
     return jsonify({'message': 'pong'})
