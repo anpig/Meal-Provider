@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from model.models import db
 from route.routes import bp_root, bp_main, bp_pos
+from flask_jwt_extended import JWTManager
 
 def create_app():
     app = Flask(__name__)
@@ -8,6 +9,8 @@ def create_app():
     # flask 2.3x remove buildin config value JSON_SORT_KEYS, so it cannot be set in config.py
     app.json.sort_keys = False 
     db.init_app(app)
+    jwt = JWTManager(app)
+    jwt.init_app(app)
     return app
 
 app = create_app()
