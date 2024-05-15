@@ -23,5 +23,4 @@ def not_found(error):
     return jsonify({'error': 'Resource Not found'}), 404
 
 if __name__ == '__main__':
-    print(app.config["MAX_CONTENT_LENGTH"])
     app.run(debug=True, host="0.0.0.0", port=5000)
