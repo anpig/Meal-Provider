@@ -29,28 +29,28 @@
 ```
 {
     "meals": 
-        [
-            {
-                "dish_id": 1,
-                "name": "Fried Chicken",
-                "description": "Delicious",
-                "price": 200,
-                "rating": 4.5,
-                "order_times": 0,
-                "picture": "/static/dish/chicken.png",
-                "available": 1
-            },
-            {
-                "dish_id": 2,
-                "name": "Hamburger",
-                "description": "Delicious",
-                "price": 150,
-                "rating": 4.5,
-                "order_times": 0,
-                "picture": "/static/dish/chicken.png",
-                "available": 1
-            }
-        ]
+    [
+        {
+            "dish_id": 1,
+            "name": "Fried Chicken",
+            "description": "Delicious",
+            "price": 200,
+            "rating": 4.5,
+            "order_times": 0,
+            "picture": "/static/dish/chicken.png",
+            "available": 1
+        },
+        {
+            "dish_id": 2,
+            "name": "Hamburger",
+            "description": "Delicious",
+            "price": 150,
+            "rating": 4.5,
+            "order_times": 0,
+            "picture": "/static/dish/chicken.png",
+            "available": 1
+        }
+    ]
 }
 ```
 ### add dish
@@ -63,14 +63,14 @@
     "name": ,
     "description": ,
     "picture_filename": , // upload picture first to get filename
-    "price": ,
+    "price":
 }
 ```
 - response
 ```
 {
-    "status": "success|fail",
-    "dish_id": 
+    "status": "success|fail", 
+    "error": // if status is fail
 }
 ```
 
@@ -78,6 +78,7 @@
 > to do
 - endpoint: `/pos/upload/dish`
 - method: `POST`
+- 看起來需要 `<input name='image'>` 才收的到 (name 要和後端收的 key 一樣)
 - accept file extension: png, jpg, jpeg
 - response
 ```

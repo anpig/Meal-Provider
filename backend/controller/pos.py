@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from random import shuffle
-from model.models import Dish_Info, db
+from model.models import Dish_Info, db, Restaurant_Info
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
 import os
@@ -39,12 +39,14 @@ def add_dish():
     dish_name = request.get_json().get('name')
     description = request.get_json().get('description')
     price = request.get_json().get('price')
-    filename = request.get_json().get('picture')
+    filename = request.get_json().get('picture_filename')
 
     # TODO: check if the file has been uploaded
     picture_exist = True
+    path = os.path.join('static', 'dish', filename)
+    picture_exist = os.path.isfile(path)
     if not picture_exist:
-        return jsonify({'error': 'Picture has not been uploaded'})
+        return jsonify({'status': "fail", 'error': 'Picture has not been uploaded'})
 
     new_dish = Dish_Info(
         Name=dish_name, Description=description, 
@@ -57,14 +59,12 @@ def add_dish():
     db.session.commit()
     return jsonify({'status': 'success'})
     
-# @jwt_required()
+@jwt_required()
 def upload_picture(type):
-    # if not check_permission('restaurant'):
-    #     return jsonify({'error': 'Permission Denied'}), 403
+    if not check_permission('restaurant'):
+        return jsonify({'error': 'Permission Denied'}), 403
    
     # error handling
-    # if 'file' not in request.files:
-    #     return jsonify({'status': 'fail', 'error': 'No file part'})
     if type not in ['cover', 'dish']:
         return jsonify({'status': 'fail', 'error': 'Invalid type'})
     if not allowed_file(request.files['image'].filename):
@@ -79,5 +79,11 @@ def upload_picture(type):
     filename = ''.join(filename[:10]) + '.' + file.filename.split('.')[-1]
     path = os.path.join('static', type, filename)
     file.save(path)
+
+    # TODO test this part
+    if type == 'cover':
+        restaurant = Restaurant_Info.query.filter_by(RestaurantID=get_restaurant_id()).first()
+        restaurant.Cover = filename
+        db.session.commit()
     
     return jsonify({'status': 'success', 'filename': filename})
