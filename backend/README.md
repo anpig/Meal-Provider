@@ -22,52 +22,70 @@
 
 ## POS page (for restaurant)
 ### get menu
-> to do
+> done
 - endpoint: `/pos/menu`
 - method: GET
 - response
 ```
 {
     "meals": 
-        [
-            {
-                "dish_id": 1,
-                "name": "Fried Chicken",
-                "description": "Delicious",
-                "price": 200,
-                "rating": 4.5,
-                "order_times": 0,
-                "picture": "/static/dish/chicken.png"
-            },
-            {
-                "dish_id": 2,
-                "name": "Hamburger",
-                "description": "Delicious",
-                "price": 150,
-                "rating": 4.5,
-                "order_times": 0,
-                "picture": "/static/dish/chicken.png"
-            }
-        ]
+    [
+        {
+            "dish_id": 1,
+            "name": "Fried Chicken",
+            "description": "Delicious",
+            "price": 200,
+            "rating": 4.5,
+            "order_times": 0,
+            "picture": "/static/dish/chicken.png",
+            "available": 1
+        },
+        {
+            "dish_id": 2,
+            "name": "Hamburger",
+            "description": "Delicious",
+            "price": 150,
+            "rating": 4.5,
+            "order_times": 0,
+            "picture": "/static/dish/chicken.png",
+            "available": 1
+        }
+    ]
 }
 ```
 ### add dish
-> to do
+> done
 - endpoint: `/pos/add_dish`
 - method: POST
 - request body
+```
+{
+    "name": ,
+    "description": ,
+    "picture_filename": , // upload picture first to get filename
+    "price":
+}
+```
 - response
+```
+{
+    "status": "success|fail", 
+    "error": // if status is fail
+}
+```
 
 ### upload picture of a dish
 > to do
 - endpoint: `/pos/upload/dish`
 - method: `POST`
+- 看起來需要 `<input name='image'>` 才收的到 (name 要和後端收的 key 一樣)
 - accept file extension: png, jpg, jpeg
 - response
 ```
 {
     "status": "success|fail",
-    "filename": ""
+    "filename": "", // if status is success
+    "error": "error msg" // if status is fail
 }
 ```
 ### upload cover picture of the restaurant
@@ -84,7 +102,7 @@
 ```
 ### get review
 > to do
-- endpoint: `/pos/review/<id>`
+- endpoint: `/pos/review`
 - method: GET
 - response
 ```
