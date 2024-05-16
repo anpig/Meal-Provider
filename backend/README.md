@@ -108,7 +108,7 @@
 ```
 ```
 ### view order
-> to do
+> done
 - endpoint: `/pos/order`
 - only return today's order?
 - method: GET
