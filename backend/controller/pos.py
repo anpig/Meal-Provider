@@ -1,9 +1,10 @@
 from flask import request, jsonify
 from random import shuffle
-from model.models import Dish_Info, db, Restaurant_Info
+from model.models import Dish_Info, db, Restaurant_Info, Orders, Staff_Info, Order_Dish
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
 import os
+from datetime import datetime
 
 UPLOAD_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -87,3 +88,33 @@ def upload_picture(type):
         db.session.commit()
     
     return jsonify({'status': 'success', 'filename': filename})
+
+@jwt_required()
+def get_order():
+    if not check_permission('restaurant'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    restaurant_id = get_restaurant_id()
+    today = datetime(year=datetime.now().year, month=datetime.now().month, day=1)
+    orders = db.session.query(Orders, Staff_Info) \
+        .join(Staff_Info, Orders.CustomerID == Staff_Info.StaffID, isouter=True) \
+        .filter(Orders.RestaurantID == restaurant_id) \
+        .filter(Orders.OrderTime >= today) \
+        .filter(Orders.OrderTime <= datetime.now()).all()
+    order_list = []
+    for order in orders:
+        order_id = order[0].OrderID
+        dishes = db.session.query(Order_Dish, Dish_Info) \
+            .join(Dish_Info, Order_Dish.DishID == Dish_Info.DishID, isouter=True) \
+            .filter(Order_Dish.OrderID == order_id).all()
+        dish_list = [{"dish_id": dish[0].OrderID, "dish_name": dish[1].Name} for dish in dishes]
+        # order is a tuple of (Orders, Staff_Info)
+        order_list.append({
+            'order_id': order[0].OrderID,
+            'customer_id': order[0].CustomerID,
+            'customer_name': order[1].StaffName,  # Update the column name to Staff_Info.StaffName
+            'price': order[0].TotalPrice,
+            'order_time': order[0].OrderTime,
+            'finish': order[0].Finish,
+            'dishes': dish_list
+        })
+    return jsonify({'orders': order_list})

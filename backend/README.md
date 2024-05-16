@@ -107,6 +107,33 @@
 - response
 ```
 ```
+### view order
+> to do
+- endpoint: `/pos/order`
+- only return today's order?
+- method: GET
+- response
+```
+{
+    "order": 
+    [
+        {
+            "order_id": ,
+            "customer_id": ,
+            "custumer_name": ,
+            "order_time": ,
+            "finish": ,
+            "order_dish":
+            [
+                {
+                    "dish_id": ,
+                    "dish_name": 
+                },
+            ]
+        },
+    ]
+}
+```
 
 ## main page (for worker)
 ### get metadata for all restaurant
