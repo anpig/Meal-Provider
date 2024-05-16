@@ -64,7 +64,7 @@ class Orders(db.Model):
     RestaurantID = db.Column(db.Integer)
     TotalPrice = db.Column(db.Integer)
     OrderTime = db.Column(db.DateTime)
-    onAccount = db.Column(db.Boolean)
+    Finish = db.Column(db.Boolean)
 
     def __repr__(self):
         return f"<Orders {self.OrderID}>"
