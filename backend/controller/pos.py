@@ -118,3 +118,26 @@ def get_order():
             'dishes': dish_list
         })
     return jsonify({'orders': order_list})
+
+@jwt_required()
+def add_order():
+    if not check_permission('restaurant'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    restaurant_id = get_restaurant_id()
+    customer_id = request.get_json().get('customer_id')
+    dish_list = request.get_json().get('dishes_id')
+    total_price = request.get_json().get('total_price')
+    new_order = Orders(
+        CustomerID = customer_id, RestaurantID = restaurant_id,
+        TotalPrice = total_price, OrderTime = datetime.now(),
+        Finish = False
+    )
+    db.session.add(new_order)
+    db.session.commit()
+    order_id = new_order.OrderID
+
+    dishes = [Order_Dish(OrderID = order_id, DishID = dish_id) for dish_id in dish_list]
+    db.session.add_all(dishes)
+    db.session.commit()
+
+    return jsonify({'status': 'success', "order_id": order_id})

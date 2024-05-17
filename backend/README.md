@@ -109,7 +109,7 @@
 ```
 ### view order
 > done
-- endpoint: `/pos/order`
+- endpoint: `/pos/get_order`
 - only return today's order?
 - method: GET
 - response
@@ -132,6 +132,26 @@
             ]
         },
     ]
+}
+```
+### add order
+> to do
+- endpoint: `/pos/add_order`
+- method: POST
+- request body
+```
+{
+    "customer_id": ,
+    "total_price": ,
+    "dishes_id": []
+}
+```
+- response
+```
+{
+    "status": "success|error",
+    "error": "error_msg" // if status is error
+    "order_id": // if status is success
 }
 ```
 
