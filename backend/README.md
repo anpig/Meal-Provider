@@ -121,13 +121,14 @@
             "order_id": ,
             "customer_id": ,
             "custumer_name": ,
-            "order_time": ,
+            "order_time": "YYYY-MM-DD HH:MM:SS",
             "finish": ,
             "order_dish":
             [
                 {
                     "dish_id": ,
-                    "dish_name": 
+                    "dish_name": ,
+                    "price": 
                 },
             ]
         },
