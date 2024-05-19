@@ -11,9 +11,6 @@ export default class userLoginService {
       body: JSON.stringify({ user_account: user_account, user_password: user_password })
     })
     const result = await response.json()
-    return {
-      outh_token: result.outh_token,
-      user_identity: result.user_identity
-    }
+    return result
   }
 }

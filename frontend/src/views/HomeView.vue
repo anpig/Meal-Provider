@@ -109,6 +109,9 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import { useUserStore } from '@/store/user'
+
+const userStore = useUserStore()
 import userLoginService from '@/service/userLoginService'
 
 const loginStatus = ref(0)
@@ -122,12 +125,15 @@ const submit = async () => {
   if (userInfo.user_identity === 'invalid') {
     loginStatus.value = 1
   } else if (userInfo.user_identity === 'clerk') {
+    userStore.setUserInfo(userInfo)
     loginStatus.value = 0
     window.location.href = '/restaurant'
   } else if (userInfo.user_identity === 'manager') {
+    userStore.setUserInfo(userInfo)
     loginStatus.value = 0
     window.location.href = '/admin'
   } else if (userInfo.user_identity === 'worker') {
+    userStore.setUserInfo(userInfo)
     loginStatus.value = 0
     window.location.href = '/worker'
   }
