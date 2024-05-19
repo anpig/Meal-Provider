@@ -124,11 +124,11 @@ const submit = async () => {
   const userInfo = await userLoginService.userLogin(userInput.account, userInput.password)
   if (userInfo.user_identity === 'invalid') {
     loginStatus.value = 1
-  } else if (userInfo.user_identity === 'clerk') {
+  } else if (userInfo.user_identity === 'restaurant') {
     userStore.setUserInfo(userInfo)
     loginStatus.value = 0
     window.location.href = '/restaurant'
-  } else if (userInfo.user_identity === 'manager') {
+  } else if (userInfo.user_identity === 'admin') {
     userStore.setUserInfo(userInfo)
     loginStatus.value = 0
     window.location.href = '/admin'
