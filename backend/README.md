@@ -1,5 +1,23 @@
 # API Document
-[toc]
+## Summary
+- login
+- POS Page
+    - get menu
+    - view order
+    - add order
+    - finish order ?
+- main page (for worker)
+    - get metadata of all restaurant
+    - get info of a single restaurant
+    - get history order
+    - add review
+- admin
+    - add dish / upload dish picture
+    - upload cover picture of a restaurant
+    - get monthly report data
+    - notify unpaid user
+    - get all menu
+    - update menu
 ## login
 > done
 - endpoint: `/login`
@@ -53,53 +71,6 @@
     ]
 }
 ```
-### add dish
-> done
-- endpoint: `/pos/add_dish`
-- method: POST
-- request body
-```
-{
-    "name": ,
-    "description": ,
-    "picture_filename": , // upload picture first to get filename
-    "price":
-}
-```
-- response
-```
-{
-    "status": "success|fail", 
-    "error": // if status is fail
-}
-```
-
-### upload picture of a dish
-> to do
-- endpoint: `/pos/upload/dish`
-- method: `POST`
-- 看起來需要 `<input name='image'>` 才收的到 (name 要和後端收的 key 一樣)
-- accept file extension: png, jpg, jpeg
-- response
-```
-{
-    "status": "success|fail",
-    "filename": "", // if status is success
-    "error": "error msg" // if status is fail
-}
-```
-### upload cover picture of the restaurant
-> to do
-- endpoint: `/pos/upload/cover`
-- method: `POST`
-- accept file extension: png, jpg, jpeg
-- response
-```
-{
-    "status": "success|fail",
-    "filename": ""
-}
-```
 ### get review
 > to do
 - endpoint: `/pos/review`
@@ -136,7 +107,7 @@
 }
 ```
 ### add order
-> to do
+> done
 - endpoint: `/pos/add_order`
 - method: POST
 - request body
@@ -153,6 +124,17 @@
     "status": "success|error",
     "error": "error_msg" // if status is error
     "order_id": // if status is success
+}
+```
+### finish order
+> to do
+- endpoint: `/pos/finish/<order-id>`
+- method: POST
+- response
+```
+{
+    "status": "success|error",
+    "error": "error_msg" // if status is error
 }
 ```
 
@@ -173,7 +155,7 @@
     {
         "id": 1,
         "restaurant": "KFC",
-        "phone": 912345678,
+        "phone": 0912345678,
         "picture": "/static/restaurant/kfc.png",
         "description": "Fast Food Restaurant",
         "rating": 4.3,
@@ -202,21 +184,11 @@
         ]
     }
     ```
-### order a meal
-> to do
-- endpoint: `/main/order`
-- method: POST
-- request body
-```
-```
-- response
-```
-```
 
 ### get history order
 > to do
-- endpoint: `/main/history?onAccount=1|0`
-    - onAccount = 1: filter out the order that has not been paid
+> filter?
+- endpoint: `/main/history`
 - method: GET
 - response
 ```
@@ -232,7 +204,70 @@
 ```
 ```
 ## admin page
+### add dish
+> done
+- endpoint: `/admin/add_dish`
+- method: POST
+- request body
+```
+{
+    "restaurant_id": ,
+    "name": ,
+    "description": ,
+    "picture_filename": , // upload picture first to get filename
+    "price":
+}
+```
+- response
+```
+{
+    "status": "success|fail", 
+    "error": // if status is fail
+}
+```
+
+### upload picture of a dish
+> done
+- endpoint: `/admin/upload/dish`
+- method: `POST`
+- 看起來需要 `<input name='image'>` 才收的到 (name 要和後端收的 key 一樣)
+- 這個應該一定得用表單上傳，方便的話順便送個 restaurant id (不行的話再看看可以怎麼做)
+- accept file extension: png, jpg, jpeg
+- response
+```
+{
+    "status": "success|fail",
+    "filename": "", // if status is success
+    "error": "error msg" // if status is fail
+}
+```
+### upload cover picture of the restaurant
+> done
+- endpoint: `/admin/upload/cover`
+- method: `POST`
+- 看起來需要 `<input name='image'>` 才收的到 (name 要和後端收的 key 一樣)
+- 這個應該一定得用表單上傳，方便的話順便送個 restaurant id (不行的話再看看可以怎麼做)
+- accept file extension: png, jpg, jpeg
+- response
+```
+{
+    "status": "success|fail",
+    "filename": ""
+}
+```
 ### get monthly report
+> to do
+- endpoint: `/admin/monthly_report`
+- method: `GET`
+- response
+```
+```
 ### notify unpaid user
+> to do
+> how? To be discussed
+
 ### get all menu and reviews
+> to do
+
 ### update menu
+> to do
