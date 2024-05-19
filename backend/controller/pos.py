@@ -77,3 +77,19 @@ def add_order():
     db.session.commit()
 
     return jsonify({'status': 'success', "order_id": order_id})
+
+@jwt_required()
+def finish_order(order_id):
+    if not check_permission('restaurant'):
+        return jsonify({'status': 'error', 'error': 'Permission Denied'}), 403
+    restaurant_id = get_restaurant_id()
+    order = Orders.query.filter_by(OrderID=order_id).first()
+    if not order:
+        return jsonify({'status': 'error', 'error': 'Order not found'}), 404
+    if str(order.RestaurantID) != str(restaurant_id):
+        return jsonify({'status': 'error', 'error': 'Permission Denied, restaurant id not matched'}), 403
+    if order.Finish:
+        return jsonify({'status': 'error', 'error': 'Order has already finished'})
+    order.Finish = True
+    db.session.commit()
+    return jsonify({'status': 'success'})
