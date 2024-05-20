@@ -6,13 +6,14 @@ export const useUserStore = defineStore({
   state: () => ({
     userInfo: {
       outh_token: '',
-      user_identity: ''
+      user_identity: '',
+      restaurant_id: ''
     } as user
   }),
+  persist: true,
   actions: {
     setUserInfo(user: user) {
       this.userInfo = user
-      console.log(user)
     }
   }
 })
