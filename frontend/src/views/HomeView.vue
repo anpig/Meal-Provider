@@ -109,6 +109,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import router from '@/router/index'
 import { useUserStore } from '@/store/user'
 
 const userStore = useUserStore()
@@ -122,20 +123,21 @@ const userInput = reactive({
 
 const submit = async () => {
   const userInfo = await userLoginService.userLogin(userInput.account, userInput.password)
-  if (userInfo.user_identity === 'invalid') {
+  console.log(userInfo)
+  if (userInfo.user_identity === 'invalid_user') {
     loginStatus.value = 1
   } else if (userInfo.user_identity === 'restaurant') {
     userStore.setUserInfo(userInfo)
     loginStatus.value = 0
-    window.location.href = '/restaurant'
+    router.push({ path: '/restaurant' })
   } else if (userInfo.user_identity === 'admin') {
     userStore.setUserInfo(userInfo)
     loginStatus.value = 0
-    window.location.href = '/admin'
+    router.push({ path: '/admin' })
   } else if (userInfo.user_identity === 'worker') {
     userStore.setUserInfo(userInfo)
     loginStatus.value = 0
-    window.location.href = '/worker'
+    router.push({ path: '/worker' })
   }
 }
 </script>
