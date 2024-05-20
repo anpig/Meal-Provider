@@ -1,9 +1,10 @@
 from flask import request, jsonify
 from random import shuffle
-from model.models import Dish_Info, db, Restaurant_Info
+from model.models import Dish_Info, db, Restaurant_Info, Orders, Staff_Info, Order_Dish
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
 import os
+from datetime import datetime
 
 UPLOAD_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -87,3 +88,56 @@ def upload_picture(type):
         db.session.commit()
     
     return jsonify({'status': 'success', 'filename': filename})
+
+@jwt_required()
+def get_order():
+    if not check_permission('restaurant'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    restaurant_id = get_restaurant_id()
+    today = datetime(year=datetime.now().year, month=datetime.now().month, day=1)
+    orders = db.session.query(Orders, Staff_Info) \
+        .join(Staff_Info, Orders.CustomerID == Staff_Info.StaffID, isouter=True) \
+        .filter(Orders.RestaurantID == restaurant_id) \
+        .filter(Orders.OrderTime >= today) \
+        .filter(Orders.OrderTime <= datetime.now()).all()
+    order_list = []
+    for order in orders:
+        order_id = order[0].OrderID
+        dishes = db.session.query(Order_Dish, Dish_Info) \
+            .join(Dish_Info, Order_Dish.DishID == Dish_Info.DishID, isouter=True) \
+            .filter(Order_Dish.OrderID == order_id).all()
+        dish_list = [{"dish_id": dish[0].DishID, "dish_name": dish[1].Name, "price": dish[1].Price} for dish in dishes]
+        # order is a tuple of (Orders, Staff_Info)
+        order_list.append({
+            'order_id': order[0].OrderID,
+            'customer_id': order[0].CustomerID,
+            'customer_name': order[1].StaffName,  # Update the column name to Staff_Info.StaffName
+            'price': order[0].TotalPrice,
+            'order_time': order[0].OrderTime.strftime("%Y-%m-%d %H:%M:%S"),
+            'finish': order[0].Finish,
+            'dishes': dish_list
+        })
+    return jsonify({'orders': order_list})
+
+@jwt_required()
+def add_order():
+    if not check_permission('restaurant'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    restaurant_id = get_restaurant_id()
+    customer_id = request.get_json().get('customer_id')
+    dish_list = request.get_json().get('dishes_id')
+    total_price = request.get_json().get('total_price')
+    new_order = Orders(
+        CustomerID = customer_id, RestaurantID = restaurant_id,
+        TotalPrice = total_price, OrderTime = datetime.now(),
+        Finish = False
+    )
+    db.session.add(new_order)
+    db.session.commit()
+    order_id = new_order.OrderID
+
+    dishes = [Order_Dish(OrderID = order_id, DishID = dish_id) for dish_id in dish_list]
+    db.session.add_all(dishes)
+    db.session.commit()
+
+    return jsonify({'status': 'success', "order_id": order_id})

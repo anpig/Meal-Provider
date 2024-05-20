@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -13,7 +14,7 @@ class Staff_Info(db.Model):
     PhoneNumber = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"<Staff_Information {self.staff_id}>"
+        return f"<Staff_Information {self.StaffID}>"
 
 class Dish_Info(db.Model):
     __tablename__ = 'Dish_Info'
@@ -64,7 +65,7 @@ class Orders(db.Model):
     RestaurantID = db.Column(db.Integer)
     TotalPrice = db.Column(db.Integer)
     OrderTime = db.Column(db.DateTime)
-    onAccount = db.Column(db.Boolean)
+    Finish = db.Column(db.Boolean)
 
     def __repr__(self):
         return f"<Orders {self.OrderID}>"

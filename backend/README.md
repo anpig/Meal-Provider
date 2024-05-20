@@ -107,6 +107,54 @@
 - response
 ```
 ```
+### view order
+> done
+- endpoint: `/pos/get_order`
+- only return today's order?
+- method: GET
+- response
+```
+{
+    "order": 
+    [
+        {
+            "order_id": ,
+            "customer_id": ,
+            "custumer_name": ,
+            "order_time": "YYYY-MM-DD HH:MM:SS",
+            "finish": ,
+            "order_dish":
+            [
+                {
+                    "dish_id": ,
+                    "dish_name": ,
+                    "price": 
+                },
+            ]
+        },
+    ]
+}
+```
+### add order
+> to do
+- endpoint: `/pos/add_order`
+- method: POST
+- request body
+```
+{
+    "customer_id": ,
+    "total_price": ,
+    "dishes_id": []
+}
+```
+- response
+```
+{
+    "status": "success|error",
+    "error": "error_msg" // if status is error
+    "order_id": // if status is success
+}
+```
 
 ## main page (for worker)
 ### get metadata for all restaurant

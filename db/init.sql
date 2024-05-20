@@ -73,10 +73,10 @@ CREATE TABLE Orders (
     RestaurantID BIGINT,
     TotalPrice INT,
     OrderTime TIMESTAMP,
-    onAccount BOOLEAN
+    Finish BOOLEAN
 );
 
-INSERT INTO Orders (CustomerID, RestaurantID, TotalPrice, OrderTime, onAccount) VALUES
-    (100003, 1, 350, '2021-06-01 14:00:00', FALSE),
+INSERT INTO Orders (CustomerID, RestaurantID, TotalPrice, OrderTime, Finish) VALUES
+    (100003, 1, 350, CURRENT_TIMESTAMP, FALSE),
     (100006, 2, 150, '2021-06-01 12:00:00', TRUE),
     (100005, 3, 350, '2021-06-01 20:00:00', TRUE);
