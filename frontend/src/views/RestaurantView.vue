@@ -185,6 +185,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, reactive, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import restaurantService from '@/service/restaurantService'
 import type { restaurant } from '@/types/restaurant'
 import { type meal } from '@/types/restaurant'
@@ -194,6 +195,7 @@ const meals = ref<meal[]>([])
 const categorie = ref('alarcarte')
 const userStore = useUserStore()
 
+const { userInfo } = storeToRefs(userStore)
 const restaurantInfo = reactive<restaurant>({
   restaurant: '',
   meals: []
@@ -205,9 +207,10 @@ const price = ref(0)
 onMounted(async () => {
   await getRestaurant()
   meals.value = restaurantInfo.meals.filter((meal: any) => meal.type === 'alarcarte')
+  console.log(userInfo.value)
 })
 const getRestaurant = async () => {
-  const data = await restaurantService.getRestaurant()
+  const data = await restaurantService.getRestaurant(userInfo.value.outh_token)
   restaurantInfo.restaurant = data.restaurant
   restaurantInfo.meals = data.meals
 }

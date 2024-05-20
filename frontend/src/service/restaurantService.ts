@@ -1,7 +1,14 @@
 import type { restaurant } from '../types/restaurant'
 
 export default class restaurantService {
-  static async getRestaurant(): Promise<restaurant> {
+  static async getRestaurant(token: string): Promise<restaurant> {
+    const response = await fetch("/api/pos/menu", {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    });
+    const data = await response.json();
+    console.log(data)
     return {
       restaurant: 'Fake Restaurant',
       meals: [
