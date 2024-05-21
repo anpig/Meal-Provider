@@ -23,10 +23,12 @@ class Dish_Info(db.Model):
     RestaurantID = db.Column(db.Integer)
     Name = db.Column(db.String(255))
     Description = db.Column(db.String(1000))
+    Combo = db.Column(db.Boolean)
     Picture = db.Column(db.String(255))
     Price = db.Column(db.Integer)
     Available= db.Column(db.Boolean)
     TimesOfOrder = db.Column(db.Integer)
+    RatingCnt = db.Column(db.Integer)
     Rating = db.Column(db.Float)
 
     def __repr__(self):
@@ -42,6 +44,7 @@ class Restaurant_Info(db.Model):
     CloseTime = db.Column(db.DateTime)
     Description = db.Column(db.String(1000))
     Picture = db.Column(db.String(255))
+    RatingCnt = db.Column(db.Integer)
     Rating = db.Column(db.Float)
 
     def __repr__(self):
@@ -66,6 +69,20 @@ class Orders(db.Model):
     TotalPrice = db.Column(db.Integer)
     OrderTime = db.Column(db.DateTime)
     Finish = db.Column(db.Boolean)
+    Reviewed = db.Column(db.Boolean)
 
     def __repr__(self):
         return f"<Orders {self.OrderID}>"
+
+class Review(db.Model):
+    __tablename__ = 'Review'
+
+    SerialID = db.Column(db.Integer, primary_key=True)
+    OrderID = db.Column(db.Integer)
+    CustomerID = db.Column(db.Integer)
+    DishID = db.Column(db.Integer)
+    Rating = db.Column(db.Integer)
+    Time = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return f"<Review {self.ReviewID}>"

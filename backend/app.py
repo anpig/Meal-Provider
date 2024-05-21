@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from model.models import db
-from route.routes import bp_root, bp_main, bp_pos
+from route.routes import bp_root, bp_main, bp_pos, bp_admin
 from flask_jwt_extended import JWTManager
 
 def create_app():
@@ -17,6 +17,7 @@ app = create_app()
 app.register_blueprint(bp_root, url_prefix='')
 app.register_blueprint(bp_main, url_prefix='/main')
 app.register_blueprint(bp_pos, url_prefix='/pos')
+app.register_blueprint(bp_admin, url_prefix='/admin')
 
 @app.errorhandler(404)
 def not_found(error):
