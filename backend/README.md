@@ -5,7 +5,7 @@
     - get menu
     - view order
     - add order
-    - finish order ?
+    - finish order
 - main page (for worker)
     - get metadata of all restaurant
     - get info of a single restaurant
@@ -52,6 +52,7 @@
             "dish_id": 1,
             "name": "Fried Chicken",
             "description": "Delicious",
+            "combo": 0,
             "price": 200,
             "rating": 4.5,
             "order_times": 0,
@@ -62,6 +63,7 @@
             "dish_id": 2,
             "name": "Hamburger",
             "description": "Delicious",
+            "combo": 0,
             "price": 150,
             "rating": 4.5,
             "order_times": 0,
@@ -167,6 +169,7 @@
                 "dish_id": 1,
                 "name": "Fried Chicken",
                 "description": "Delicious",
+                "combo": 0,
                 "price": 200,
                 "rating": 4.5,
                 "order_times": 0,
@@ -176,6 +179,7 @@
                 "dish_id": 2,
                 "name": "Hamburger",
                 "description": "Delicious",
+                "combo": 0,
                 "price": 150,
                 "rating": 4.5,
                 "order_times": 0,
@@ -233,6 +237,7 @@
     "restaurant_id": ,
     "name": ,
     "description": ,
+    "combo": ,
     "picture_filename": , // upload picture first to get filename
     "price":
 }

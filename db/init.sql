@@ -1,3 +1,4 @@
+DROP TABLE Staff_Info; DROP TABLE Dish_Info; DROP TABLE Restaurant_Info; DROP TABLE Order_Dish; DROP TABLE Orders; DROP TABLE Review; \
 CREATE TABLE Staff_Info ( \
     StaffID BIGINT PRIMARY KEY, \
     StaffName VARCHAR(255), \
@@ -19,6 +20,7 @@ CREATE TABLE Dish_Info( \
     RestaurantID BIGINT, \
     Name VARCHAR(255), \
     Description VARCHAR(1000), \
+    Combo BOOLEAN, \
     Picture VARCHAR(255), \
     Price INT, \
     Available BOOLEAN, \
@@ -27,16 +29,17 @@ CREATE TABLE Dish_Info( \
     Rating FLOAT \
 ); \
 \
-INSERT INTO Dish_Info (RestaurantID, Name, Description, Picture, Price, Available, TimesOfOrder, RatingCnt, Rating) VALUES \
-    (1, 'Fried Chicken', 'Delicious', 'chicken.jpg', 200, TRUE, 1, 0, 0), \
-    (1, 'Hamburger', 'Delicious', 'chicken.jpg', 150, TRUE, 1, 0, 0), \
-    (1, 'French Fries', 'Delicious', 'chicken.jpg', 100, TRUE, 0, 0, 0), \
-    (2, 'Cookie', 'Delicious', 'chicken.jpg', 30, TRUE, 0, 0, 0), \
-    (2, 'Veggie Delite', 'Delicious', 'chicken.jpg', 150, FALSE, 1, 1, 5), \
-    (2, 'Tuna', 'Delicious', 'chicken.jpg', 170, TRUE, 0, 0, 0), \
-    (3, 'Pepperoni Pizza', 'Delicious', 'chicken.jpg', 200, TRUE, 1, 1, 3), \
-    (3, 'Hawaiian Pizza', 'Delicious', 'chicken.jpg', 150, TRUE, 1, 1, 4), \
-    (3, 'Cheese Pizza', 'Delicious', 'chicken.jpg', 100, FALSE, 0, 0, 0); \
+INSERT INTO Dish_Info (RestaurantID, Name, Description, Combo, Picture, Price, Available, TimesOfOrder, RatingCnt, Rating) VALUES \
+    (1, 'Fried Chicken', 'Delicious', FALSE, 'chicken.jpg', 200, TRUE, 1, 0, 0), \
+    (1, 'Hamburger', 'Delicious', FALSE, 'chicken.jpg', 150, TRUE, 1, 0, 0), \
+    (1, 'French Fries', 'Delicious', FALSE, 'chicken.jpg', 100, TRUE, 0, 0, 0), \
+    (1, 'Six Nuggets with Coke', 'Delicious', TRUE, 'chicken.jpg', 150, TRUE, 0, 0, 0), \
+    (2, 'Cookie', 'Delicious', FALSE, 'chicken.jpg', 30, TRUE, 0, 0, 0), \
+    (2, 'Veggie Delite', 'Delicious', FALSE, 'chicken.jpg', 150, FALSE, 1, 1, 5), \
+    (2, 'Tuna', 'Delicious', FALSE, 'chicken.jpg', 170, TRUE, 0, 0, 0), \
+    (3, 'Pepperoni Pizza', 'Delicious', FALSE, 'chicken.jpg', 200, TRUE, 1, 1, 3), \
+    (3, 'Hawaiian Pizza', 'Delicious', FALSE, 'chicken.jpg', 150, TRUE, 1, 1, 4), \
+    (3, 'Cheese Pizza', 'Delicious', FALSE, 'chicken.jpg', 100, FALSE, 0, 0, 0); \
 \
 CREATE TABLE Restaurant_Info ( \
     RestaurantID BIGINT PRIMARY KEY AUTO_INCREMENT, \
@@ -87,7 +90,7 @@ CREATE TABLE Review( \
     SerialID BIGINT PRIMARY KEY AUTO_INCREMENT, \
     OrderID BIGINT, \
     CustomerID BIGINT, \
-    DishID BIGINT, \ -- DishID = 0 means review the restaurant
+    DishID BIGINT, \ -- DishID = 0 means review the whole restaurant
     Rating BIGINT, \
     Time TIMESTAMP \
 ); \

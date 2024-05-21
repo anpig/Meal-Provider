@@ -10,25 +10,29 @@ def get_restaurant_info(id):
     if restaurant is None:
         abort(404)
     returned_data = dict()
-    returned_data['id'] = restaurant.RestaurantID
-    returned_data['restaurant'] = restaurant.RestaurantName
-    returned_data['phone'] = restaurant.PhoneNumber
-    returned_data['picture'] = '/static/restaurant/' + restaurant.Picture
-    returned_data['description'] = restaurant.Description
-    returned_data['rating'] = restaurant.Rating
-    returned_data['open_time'] = str(restaurant.OpenTime)
-    returned_data['close_time'] = str(restaurant.CloseTime)
+    returned_data = {
+        'id': restaurant.RestaurantID,
+        'restaurant': restaurant.RestaurantName,
+        'phone': restaurant.PhoneNumber,
+        'picture': '/static/restaurant/' + restaurant.Picture,
+        'description': restaurant.Description,
+        'rating': restaurant.Rating,
+        'open_time': str(restaurant.OpenTime),
+        'close_time': str(restaurant.CloseTime)
+    }
     dishes = Dish_Info.query.filter_by(RestaurantID=id, Available=True).all()
     returned_data['meals'] = []
     for dish in dishes:
-        dish_data = {}
-        dish_data['dish_id'] = dish.DishID
-        dish_data['name'] = dish.Name
-        dish_data['description'] = dish.Description
-        dish_data['price'] = dish.Price
-        dish_data['rating'] = dish.Rating
-        dish_data['order_times'] = dish.TimesOfOrder
-        dish_data['picture'] = '/static/dish/' + dish.Picture 
+        dish_data = {
+            'dish_id': dish.DishID,
+            'name': dish.Name,
+            'description': dish.Description,
+            'combo': dish.Combo,
+            'price': dish.Price,
+            'rating': dish.Rating,
+            'order_times': dish.TimesOfOrder,
+            'picture': '/static/dish/' + dish.Picture
+        }
         returned_data['meals'].append(dish_data)
     return jsonify(returned_data)
 

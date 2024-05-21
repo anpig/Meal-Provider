@@ -16,6 +16,7 @@ def get_menu():
             'dish_id': dish.DishID,
             'name': dish.Name,
             'description': dish.Description,
+            'combo': dish.Combo,
             'price': dish.Price,
             'rating': dish.Rating,
             "order_times": dish.TimesOfOrder,

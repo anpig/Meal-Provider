@@ -23,6 +23,7 @@ class Dish_Info(db.Model):
     RestaurantID = db.Column(db.Integer)
     Name = db.Column(db.String(255))
     Description = db.Column(db.String(1000))
+    Combo = db.Column(db.Boolean)
     Picture = db.Column(db.String(255))
     Price = db.Column(db.Integer)
     Available= db.Column(db.Boolean)

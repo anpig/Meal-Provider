@@ -18,6 +18,7 @@ def add_dish():
     restaurant_id = request.get_json().get('restaurant_id')
     dish_name = request.get_json().get('name')
     description = request.get_json().get('description')
+    combo = request.get_json().get('combo')
     price = request.get_json().get('price')
     filename = request.get_json().get('picture_filename')
 
@@ -31,9 +32,9 @@ def add_dish():
     new_dish = Dish_Info(
         Name = dish_name, Description = description, 
         Price = price, Picture = filename, 
-        RestaurantID = restaurant_id,
-        Available = True, Rating = 0, TimesOfOrder = 0
-
+        RestaurantID = restaurant_id, Combo = combo, 
+        Available = True, Rating = 0, 
+        RatingCnt = 0, TimesOfOrder = 0
     )
     db.session.add(new_dish)
     db.session.commit()
