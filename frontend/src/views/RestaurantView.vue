@@ -14,13 +14,13 @@
         <!-- categories -->
         <div class="mt-5 flex flex-row px-5">
           <button
-            @click="changeCategorie('alarcarte')"
+            @click="changeCategorie(false)"
             class="mr-4 rounded-2xl bg-yellow-500 px-5 py-1 text-sm text-white hover:bg-transparent hover:text-indigo-600"
           >
             單點
           </button>
           <button
-            @click="changeCategorie('combo')"
+            @click="changeCategorie(true)"
             class="mr-4 rounded-2xl bg-yellow-500 px-5 py-1 text-sm text-white hover:bg-transparent hover:text-indigo-600"
           >
             套餐
@@ -41,7 +41,7 @@
             <div class="flex flex-row items-center justify-between">
               <span class="self-end text-lg font-bold text-yellow-500">${{ meal.price }}</span>
               <img
-                src="https://source.unsplash.com/sc5sTPMrVfk/600x600"
+                :src="meal.picture"
                 class="h-14 w-14 rounded-md object-cover"
                 alt=""
               />
@@ -71,7 +71,7 @@
           <div class="mb-4 flex flex-row items-center justify-between" v-for="(meal, index) in userOrder">
             <div class="flex w-2/5 flex-row items-center">
               <img
-                src="https://source.unsplash.com/4u_nRgiLW3M/600x600"
+                :src="meal.picture"
                 class="h-10 w-10 rounded-md object-cover"
                 alt="test"
               />
@@ -192,7 +192,6 @@ import { type meal } from '@/types/restaurant'
 import { useUserStore } from '@/store/user'
 
 const meals = ref<meal[]>([])
-const categorie = ref('alarcarte')
 const userStore = useUserStore()
 
 const { userInfo } = storeToRefs(userStore)
@@ -206,8 +205,7 @@ const price = ref(0)
 
 onMounted(async () => {
   await getRestaurant()
-  meals.value = restaurantInfo.meals.filter((meal: any) => meal.type === 'alarcarte')
-  console.log(userInfo.value)
+  meals.value = restaurantInfo.meals.filter((meal: any) => meal.combo === false)
 })
 const getRestaurant = async () => {
   const data = await restaurantService.getRestaurant(userInfo.value.outh_token)
@@ -215,9 +213,8 @@ const getRestaurant = async () => {
   restaurantInfo.meals = data.meals
 }
 
-const changeCategorie = (type: string) => {
-  categorie.value = type
-  meals.value = restaurantInfo.meals.filter((meal: any) => meal.type === type)
+const changeCategorie = (type: boolean) => {
+  meals.value = restaurantInfo.meals.filter((meal: any) => meal.combo === type)
 }
 
 const showName = (meal: meal) => {

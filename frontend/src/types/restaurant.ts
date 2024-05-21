@@ -1,8 +1,13 @@
 interface meal {
+  dish_id: number
   name: string
-  type: string
-  price: number
   description: string
+  combo: boolean
+  price: number
+  rating: number
+  order_times: number
+  picture: string
+  available: number
 }
 
 interface restaurant {
