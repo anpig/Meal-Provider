@@ -66,7 +66,7 @@ def add_order():
     new_order = Orders(
         CustomerID = customer_id, RestaurantID = restaurant_id,
         TotalPrice = total_price, OrderTime = datetime.now(),
-        Finish = False
+        Finish = False, Reviewed = False
     )
     db.session.add(new_order)
     db.session.commit()
@@ -91,5 +91,9 @@ def finish_order(order_id):
     if order.Finish:
         return jsonify({'status': 'error', 'error': 'Order has already finished'})
     order.Finish = True
+    ordered_dish = Order_Dish.query.filter_by(OrderID=order_id).all()
+    for dish in ordered_dish:
+        dish_info = Dish_Info.query.filter_by(DishID=dish.DishID).first()
+        dish_info.TimesOfOrder += 1
     db.session.commit()
     return jsonify({'status': 'success'})

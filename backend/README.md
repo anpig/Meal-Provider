@@ -199,9 +199,28 @@
 - method: POST
 - request body
 ```
+{
+    "order_id": ,
+    "overall_rating": , // 1 to 5
+    "dishes_rating": 
+    [
+        {
+            "dish_id": ,
+            "rating": 
+        }, 
+        {
+            "dish_id": ,
+            "rating": 
+        }
+    ]
+}
 ```
 - response
 ```
+{
+    "status": "success|error",
+    "error": "error_msg" // if status is error
+}
 ```
 ## admin page
 ### add dish
