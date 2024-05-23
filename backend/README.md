@@ -129,7 +129,7 @@
 }
 ```
 ### finish order
-> to do
+> done
 - endpoint: `/pos/finish/<order-id>`
 - method: POST
 - response
@@ -194,11 +194,35 @@
 > filter?
 - endpoint: `/main/history`
 - method: GET
+- if the order hasn't been reviewed, set all rating to -1
 - response
 ```
+{
+    "orders":
+    [
+        {
+            "order_id": ,
+            "order_time": "YYYY-MM-DD HH:MM:SS",
+            "restaurant_id": ,
+            "total_price": ,
+            "finished": ,
+            "reviewed": 1|0,
+            "overall_rating": ,
+            "dishes": 
+            [
+                {
+                    "dish_id": ,
+                    "dish_name": ,
+                    "price": ,
+                    "rating": ,
+                }
+            ]
+        }
+    ]
+}
 ```
 ### add review
-> to do
+> done
 - endpoint: `/main/review`
 - method: POST
 - request body

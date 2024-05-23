@@ -1,6 +1,6 @@
 from flask import Blueprint
 from controller.root import login, ping
-from controller.main import get_restaurant_info, add_review
+from controller.main import get_restaurant_info, add_review, history
 from controller.pos import get_menu, get_order, add_order, finish_order
 from controller.admin import add_dish, upload_picture
 
@@ -16,6 +16,7 @@ bp_root.route('/ping', methods=['GET'])(ping)
 # prefix: /main
 bp_main.route('/restaurant/<id>', methods=['GET'])(get_restaurant_info)
 bp_main.route('/add_review', methods=['POST'])(add_review)
+bp_main.route('/history', methods=['GET'])(history)
 
 # prefix: /pos
 bp_pos.route('/menu', methods=['GET'])(get_menu)

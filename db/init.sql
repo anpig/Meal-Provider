@@ -83,8 +83,8 @@ CREATE TABLE Orders ( \
 \
 INSERT INTO Orders (CustomerID, RestaurantID, TotalPrice, OrderTime, Finish, Reviewed) VALUES \
     (100003, 1, 350, CURRENT_TIMESTAMP, FALSE, FALSE), \
-    (100006, 2, 150, '2021-06-01 12:00:00', TRUE, TRUE), \
-    (100005, 3, 350, '2021-06-01 20:00:00', TRUE, FALSE); \
+    (100006, 2, 30, '2021-06-01 12:00:00', TRUE, TRUE), \
+    (100005, 3, 350, '2021-06-01 20:00:00', TRUE, TRUE); \
 \
 CREATE TABLE Review( \
     SerialID BIGINT PRIMARY KEY AUTO_INCREMENT, \
