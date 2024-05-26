@@ -2,8 +2,9 @@
   <!-- component -->
   <div class="container mx-auto bg-white px-5">
     <div class="flex flex-col-reverse shadow-lg lg:flex-row">
+      <RestaurantSidebar class="w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
       <!-- left section -->
-      <div class="min-h-screen w-full shadow-lg lg:w-3/5">
+      <div class="min-h-screen w-full shadow-lg lg:w-3/6">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-gray-800">
@@ -40,11 +41,7 @@
             </div>
             <div class="flex flex-row items-center justify-between">
               <span class="self-end text-lg font-bold text-yellow-500">${{ meal.price }}</span>
-              <img
-                :src="meal.picture"
-                class="h-14 w-14 rounded-md object-cover"
-                alt=""
-              />
+              <img :src="meal.picture" class="h-14 w-14 rounded-md object-cover" alt="" />
             </div>
           </div>
         </div>
@@ -52,7 +49,7 @@
       </div>
       <!-- end left section -->
       <!-- right section -->
-      <div class="w-full lg:w-2/5">
+      <div class="w-full lg:w-2/6">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-xl font-bold">Current Order</div>
@@ -70,11 +67,7 @@
         <div class="mt-5 h-2/5 overflow-y-auto px-5 py-4">
           <div class="mb-4 flex flex-row items-center justify-between" v-for="(meal, index) in userOrder">
             <div class="flex w-2/5 flex-row items-center">
-              <img
-                :src="meal.picture"
-                class="h-10 w-10 rounded-md object-cover"
-                alt="test"
-              />
+              <img :src="meal.picture" class="h-10 w-10 rounded-md object-cover" alt="test" />
               <span class="ml-4 text-sm font-semibold">{{ meal.name }}</span>
             </div>
             <div class="flex w-32 justify-between">
@@ -187,8 +180,7 @@
 import { ref, computed, reactive, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import restaurantService from '@/service/restaurantService'
-import type { restaurant } from '@/types/restaurant'
-import { type meal } from '@/types/restaurant'
+import type { restaurant, meal } from '@/types/restaurant'
 import { useUserStore } from '@/store/user'
 
 const meals = ref<meal[]>([])
