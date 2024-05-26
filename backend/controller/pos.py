@@ -31,7 +31,7 @@ def get_order():
     if not check_permission('restaurant'):
         return jsonify({'error': 'Permission Denied'}), 403
     restaurant_id = get_restaurant_id()
-    today = datetime(year=datetime.now().year, month=datetime.now().month, day=1)
+    today = datetime(year=datetime.now().year, month=datetime.now().month, day=datetime.now().day, hour=0, minute=0, second=0)
     orders = db.session.query(Orders, Staff_Info) \
         .join(Staff_Info, Orders.CustomerID == Staff_Info.StaffID, isouter=True) \
         .filter(Orders.RestaurantID == restaurant_id) \

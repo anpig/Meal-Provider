@@ -73,13 +73,6 @@
     ]
 }
 ```
-### get review
-> to do
-- endpoint: `/pos/review`
-- method: GET
-- response
-```
-```
 ### view order
 > done
 - endpoint: `/pos/get_order`
@@ -190,10 +183,10 @@
     ```
 
 ### get history order
-> to do
-> filter?
+> done
 - endpoint: `/main/history`
 - method: GET
+- only select the order of current month
 - if the order hasn't been reviewed, set all rating to -1
 - response
 ```

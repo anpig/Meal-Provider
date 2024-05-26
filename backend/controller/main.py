@@ -79,7 +79,10 @@ def add_review():
 @jwt_required()
 def history():
     user_id = get_user_id()
-    orders = Orders.query.filter_by(CustomerID=user_id).all()
+    start_date = datetime(year=datetime.now().year, month=datetime.now().month, day=1)
+    orders = Orders.query.filter_by(CustomerID=user_id) \
+        .filter(Orders.OrderTime >= start_date) \
+        .filter(Orders.OrderTime <= datetime.now()).all()
     order_list = []
     for order in orders:
         ordered_dishes = db.session.query(Order_Dish, Dish_Info, Review) \
