@@ -111,10 +111,9 @@
 import { reactive, ref } from 'vue'
 import router from '@/router/index'
 import { useUserStore } from '@/store/user'
-
-const userStore = useUserStore()
 import userLoginService from '@/service/userLoginService'
 
+const userStore = useUserStore()
 const loginStatus = ref(0)
 const userInput = reactive({
   account: '',
