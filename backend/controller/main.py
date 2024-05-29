@@ -93,6 +93,7 @@ def history():
         dish_list = [{
             "dish_id": dish[0].DishID,
             "dish_name": dish[1].Name,
+            "number": dish[0].Number,
             "price": dish[1].Price,
             "rating": dish[2].Rating if dish[2] is not None else -1
         } for dish in ordered_dishes]

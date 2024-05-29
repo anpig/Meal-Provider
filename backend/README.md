@@ -110,7 +110,11 @@
 {
     "customer_id": ,
     "total_price": ,
-    "dishes_id": []
+    "dishes": 
+    [
+        "dish_id": ,
+        "number": 
+    ]
 }
 ```
 - response
@@ -206,6 +210,7 @@
                 {
                     "dish_id": ,
                     "dish_name": ,
+                    "number": ,
                     "price": ,
                     "rating": ,
                 }

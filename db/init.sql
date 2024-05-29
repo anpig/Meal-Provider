@@ -61,7 +61,8 @@ INSERT INTO Restaurant_Info  (RestaurantName, PhoneNumber, OpenTime, CloseTime, 
 CREATE TABLE Order_Dish(
     SerialID BIGINT PRIMARY KEY AUTO_INCREMENT, \
     OrderID BIGINT, \
-    DishID BIGINT \
+    DishID BIGINT, \
+    Number INT \
 ); \
 \
 INSERT INTO Order_Dish (OrderID, DishID) VALUES \
