@@ -10,9 +10,18 @@ interface meal {
   available: number
 }
 
+interface order {
+  customer_id: number
+  total_price: number
+  dishes: {
+    dish_id: number
+    number: number
+  }[]
+}
+
 interface restaurant {
   restaurant: string
   meals: meal[]
 }
 
-export { type restaurant, type meal }
+export { type restaurant, type meal, type order }

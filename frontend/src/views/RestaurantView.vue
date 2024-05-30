@@ -1,6 +1,6 @@
 <template>
   <!-- component -->
-  <div class=" mx-auto bg-white px-5">
+  <div class="mx-auto bg-white px-5">
     <div class="flex flex-col-reverse lg:flex-row">
       <RestaurantSidebar class="w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
       <!-- left section -->
@@ -20,10 +20,10 @@
           >
             單點
           </button>
-    
+
           <button
             @click="changeCategorie(true)"
-            class="w-1/6 rounded-2xl bg-transparent hover:bg-yellow-500 text-yellow-500 font-semibold hover:text-white py-2 px-4 border border-yellow-500 hover:border-transparent"
+            class="w-1/6 rounded-2xl border border-yellow-500 bg-transparent px-4 py-2 font-semibold text-yellow-500 hover:border-transparent hover:bg-yellow-500 hover:text-white"
           >
             套餐
           </button>
@@ -34,7 +34,7 @@
           <div
             style="cursor: pointer"
             @click="showName(meal)"
-            class="flex h-32 flex-col justify-between rounded-md border border-gray-200 px-3 py-3"
+            class="flex h-32 flex-col justify-between rounded-md border bg-white px-3 py-3"
             v-for="meal in meals"
           >
             <div>
@@ -57,8 +57,8 @@
           <div class="font-semibold">
             <span
               style="cursor: pointer"
-              @click="test()"
-              class="rounded-md bg-red-100 px-4 py-2 font-semibold text-red-500 hover:bg-transparent"
+              @click="clearAllMeal()"
+              class="rounded-md border border-red-500 bg-red-100 px-4 py-2 font-semibold text-red-500 hover:bg-transparent"
               >Clear All</span
             >
           </div>
@@ -76,13 +76,13 @@
                 v-if="meal.number > 0"
                 style="cursor: pointer"
                 @click="decreaseNumber(index)"
-                class="bg-white-300 rounded-md border border-red-400 px-3 py-1 hover:bg-gray-100 select-none"
+                class="bg-white-300 select-none rounded-md border border-red-400 px-3 py-1 hover:bg-gray-100"
                 >-</span
               >
               <span
                 v-else
                 style="cursor: pointer"
-                @click="decreaseNumber(index)"
+                @click="deleteMeal(index)"
                 class="bg-white-300 rounded-md border border-red-400 px-3 py-1 hover:bg-gray-100"
               >
                 <svg
@@ -100,11 +100,11 @@
                   />
                 </svg>
               </span>
-              <span class="px-3 py-1 font-semibold select-none">{{ meal.number }}</span>
+              <span class="select-none px-3 py-1 font-semibold">{{ meal.number }}</span>
               <span
                 style="cursor: pointer"
                 @click="increaseNumber(index)"
-                class="bg-white-300 rounded-md border border-green-600 px-3 py-1 hover:bg-gray-100 select-none"
+                class="bg-white-300 select-none rounded-md border border-green-600 px-3 py-1 hover:bg-gray-100"
                 >+</span
               >
             </div>
@@ -151,11 +151,13 @@
           <div class="rounded-md px-4 py-4 shadow-lg">
             <div class="flex flex-row items-center justify-between">
               <div class="flex flex-col">
-                <span class="text-xs font-semibold uppercase">cashless credit</span>
-                <span class="text-xl font-bold text-yellow-500">$32.50</span>
-                <span class="text-xs text-gray-400">Available</span>
+                <span class="text-xs font-semibold uppercase">Worker ID</span>
               </div>
-              <div class="rounded-md bg-gray-300 px-4 py-3 font-bold text-gray-800">Cancel</div>
+              <input
+                v-model="submitOrder.customer_id"
+                class="w-3/4 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
+                placeholder="請輸入員工ID"
+              />
             </div>
           </div>
         </div>
@@ -164,10 +166,10 @@
         <div class="mt-5 px-5">
           <div
             style="cursor: pointer"
-            @click="test()"
+            @click="submitUserOrder()"
             class="rounded-md bg-yellow-500 px-4 py-4 text-center font-semibold text-white shadow-lg hover:bg-transparent hover:text-indigo-600"
           >
-            Pay With Cashless Credit
+            Submit Order
           </div>
         </div>
         <!-- end button pay -->
@@ -181,8 +183,9 @@
 import { ref, computed, reactive, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import restaurantService from '@/service/restaurantService'
-import type { restaurant, meal } from '@/types/restaurant'
+import type { restaurant, meal, order } from '@/types/restaurant'
 import { useUserStore } from '@/store/user'
+import router from '@/router'
 
 const meals = ref<meal[]>([])
 const userStore = useUserStore()
@@ -194,9 +197,19 @@ const restaurantInfo = reactive<restaurant>({
 })
 
 const userOrder = reactive<any[]>([])
+const submitOrder = reactive<order>({
+  customer_id: 100006,
+  total_price: 0,
+  dishes: []
+})
 const price = ref(0)
 
 onMounted(async () => {
+  const OuthResult = await restaurantService.checkOuth(userInfo.value.outh_token)
+  if (OuthResult === false) {
+    alert('請重新登入')
+    router.push('/login')
+  }
   await getRestaurant()
   meals.value = restaurantInfo.meals.filter((meal: any) => meal.combo === false)
 })
@@ -211,13 +224,21 @@ const changeCategorie = (type: boolean) => {
 }
 
 const showName = (meal: meal) => {
-  userOrder.push({ name: meal.name, number: 1, price: meal.price })
+  userOrder.push({ name: meal.name, number: 1, price: meal.price, dish_id: meal.dish_id })
   price.value += meal.price
   alert(meal.name)
 }
 
-const test = () => {
-  alert('test')
+const submitUserOrder = () => {
+  submitOrder.total_price = price.value
+  for (let i = 0; i < userOrder.length; i++) {
+    submitOrder.dishes.push({
+      dish_id: userOrder[i].dish_id,
+      number: userOrder[i].number
+    })
+  }
+  console.log(submitOrder)
+  restaurantService.addOrder(userInfo.value.outh_token, submitOrder)
 }
 
 const decreaseNumber = (index: number) => {
@@ -228,5 +249,14 @@ const decreaseNumber = (index: number) => {
 const increaseNumber = (index: number) => {
   userOrder[index].number += 1
   price.value += userOrder[index].price
+}
+
+const deleteMeal = (index: number) => {
+  userOrder.splice(index, 1)
+}
+
+const clearAllMeal = () => {
+  userOrder.splice(0, userOrder.length)
+  price.value = 0
 }
 </script>

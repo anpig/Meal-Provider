@@ -5,7 +5,7 @@
     <nav class="text-blue-gray-700 flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal">
       <router-link
         to="/"
-        class="hover:bg-blue-gray-50 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-80 hover:bg-gray-100"
+        class="hover:bg-blue-gray-50 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-gray-100 hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-80"
       >
         <div class="mr-4 grid place-items-center">
           <svg
@@ -26,7 +26,7 @@
       </router-link>
       <div
         role="button"
-        class="hover:bg-gray-100 hover:bg-blue-gray-50 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-80"
+        class="hover:bg-blue-gray-50 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-gray-100 hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-80"
       >
         <div class="mr-4 grid place-items-center">
           <svg
@@ -47,7 +47,7 @@
       </div>
       <div
         role="button"
-        class="absolute bottom-5  hover:bg-gray-100 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-80"
+        class="hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-gray-100 hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-80"
       >
         <div class="mr-4 grid">
           <svg
@@ -66,7 +66,6 @@
         </div>
         Log Out
       </div>
-
     </nav>
   </div>
 </template>
