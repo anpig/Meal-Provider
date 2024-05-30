@@ -1,10 +1,10 @@
 <template>
   <!-- component -->
-  <div class="container mx-auto bg-white px-5">
-    <div class="flex flex-col-reverse shadow-lg lg:flex-row">
+  <div class=" mx-auto bg-white px-5">
+    <div class="flex flex-col-reverse lg:flex-row">
       <RestaurantSidebar class="w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
       <!-- left section -->
-      <div class="min-h-screen w-full shadow-lg lg:w-3/6">
+      <div class="min-h-screen w-full bg-gray-100 lg:w-3/6">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-gray-800">
@@ -16,13 +16,14 @@
         <div class="mt-5 flex flex-row px-5">
           <button
             @click="changeCategorie(false)"
-            class="mr-4 rounded-2xl bg-yellow-500 px-5 py-1 text-sm text-white hover:bg-transparent hover:text-indigo-600"
+            class="w-1/6 rounded-2xl bg-yellow-500 px-5 py-1 text-sm text-white hover:bg-transparent hover:text-indigo-600"
           >
             單點
           </button>
+    
           <button
             @click="changeCategorie(true)"
-            class="mr-4 rounded-2xl bg-yellow-500 px-5 py-1 text-sm text-white hover:bg-transparent hover:text-indigo-600"
+            class="w-1/6 rounded-2xl bg-transparent hover:bg-yellow-500 text-yellow-500 font-semibold hover:text-white py-2 px-4 border border-yellow-500 hover:border-transparent"
           >
             套餐
           </button>
@@ -49,7 +50,7 @@
       </div>
       <!-- end left section -->
       <!-- right section -->
-      <div class="w-full lg:w-2/6">
+      <div class="w-full shadow-lg lg:w-2/6">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-xl font-bold">Current Order</div>
@@ -75,7 +76,7 @@
                 v-if="meal.number > 0"
                 style="cursor: pointer"
                 @click="decreaseNumber(index)"
-                class="bg-white-300 rounded-md border border-red-400 px-3 py-1 hover:bg-gray-100"
+                class="bg-white-300 rounded-md border border-red-400 px-3 py-1 hover:bg-gray-100 select-none"
                 >-</span
               >
               <span
@@ -99,11 +100,11 @@
                   />
                 </svg>
               </span>
-              <span class="mx-4 font-semibold">{{ meal.number }}</span>
+              <span class="px-3 py-1 font-semibold select-none">{{ meal.number }}</span>
               <span
                 style="cursor: pointer"
                 @click="increaseNumber(index)"
-                class="bg-white-300 rounded-md border border-green-600 px-3 py-1 hover:bg-gray-100"
+                class="bg-white-300 rounded-md border border-green-600 px-3 py-1 hover:bg-gray-100 select-none"
                 >+</span
               >
             </div>
