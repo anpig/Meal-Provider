@@ -208,7 +208,7 @@ onMounted(async () => {
   const OuthResult = await restaurantService.checkOuth(userInfo.value.outh_token)
   if (OuthResult === false) {
     alert('請重新登入')
-    router.push('/login')
+    router.push('/')
   }
   await getRestaurant()
   meals.value = restaurantInfo.meals.filter((meal: any) => meal.combo === false)
@@ -239,6 +239,10 @@ const submitUserOrder = () => {
   }
   console.log(submitOrder)
   restaurantService.addOrder(userInfo.value.outh_token, submitOrder)
+  submitOrder.dishes.splice(0, submitOrder.dishes.length)
+  userOrder.splice(0, userOrder.length)
+  price.value = 0
+  
 }
 
 const decreaseNumber = (index: number) => {
