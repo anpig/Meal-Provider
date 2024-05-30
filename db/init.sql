@@ -1,4 +1,17 @@
-DROP TABLE Staff_Info; DROP TABLE Dish_Info; DROP TABLE Restaurant_Info; DROP TABLE Order_Dish; DROP TABLE Orders; DROP TABLE Review; \
+CREATE DATABASE IF NOT EXISTS mydatabase;
+DROP USER IF EXISTS 'user'@'%';
+CREATE USER 'user'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON mydatabase.* TO 'user'@'%';
+FLUSH PRIVILEGES;
+USE mydatabase;
+
+DROP TABLE IF EXISTS Staff_Info; \
+DROP TABLE IF EXISTS Dish_Info; \
+DROP TABLE IF EXISTS Restaurant_Info; \
+DROP TABLE IF EXISTS Order_Dish; \
+DROP TABLE IF EXISTS Orders; \
+DROP TABLE IF EXISTS Review; \
+\
 CREATE TABLE Staff_Info ( \
     StaffID BIGINT PRIMARY KEY, \
     StaffName VARCHAR(255), \
