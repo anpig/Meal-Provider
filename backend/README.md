@@ -138,12 +138,23 @@
 ```
 
 ## main page (for worker)
-### get metadata for all restaurant
-> to do
-- endpoint: `/main/all`
+### get list of restaurants
+> done
+- endpoint: `/main/restaurant_list`
 - method: GET
 - response
 ```
+{
+    "restaurants":
+    [
+        {
+            "id": ,
+            "name": ,
+            "rating": ,
+            "picture": 
+        },
+    ]
+}
 ```
 ### get information of single restaurant
 > done

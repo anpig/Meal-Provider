@@ -14,7 +14,7 @@ def get_restaurant_info(id):
         'id': restaurant.RestaurantID,
         'restaurant': restaurant.RestaurantName,
         'phone': restaurant.PhoneNumber,
-        'picture': '/static/restaurant/' + restaurant.Picture,
+        'picture': '/static/cover/' + restaurant.Picture,
         'description': restaurant.Description,
         'rating': restaurant.Rating,
         'open_time': str(restaurant.OpenTime),
@@ -108,3 +108,15 @@ def history():
             'dishes': dish_list
         })
     return jsonify({'orders': order_list})
+
+def get_restaurant_list():
+    restaurants = Restaurant_Info.query.all()
+    restaurant_list = []
+    for restaurant in restaurants:
+        restaurant_list.append({
+            'id': restaurant.RestaurantID,
+            'name': restaurant.RestaurantName,
+            'picture': '/static/cover/' + restaurant.Picture,
+            'rating': restaurant.Rating
+        })
+    return jsonify({'restaurants': restaurant_list})
