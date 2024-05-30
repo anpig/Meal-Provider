@@ -31,7 +31,7 @@ def get_order():
     if not check_permission('restaurant'):
         return jsonify({'error': 'Permission Denied'}), 403
     restaurant_id = get_restaurant_id()
-    today = datetime(year=datetime.now().year, month=datetime.now().month, day=1)
+    today = datetime(year=datetime.now().year, month=datetime.now().month, day=datetime.now().day, hour=0, minute=0, second=0)
     orders = db.session.query(Orders, Staff_Info) \
         .join(Staff_Info, Orders.CustomerID == Staff_Info.StaffID, isouter=True) \
         .filter(Orders.RestaurantID == restaurant_id) \
@@ -62,7 +62,7 @@ def add_order():
         return jsonify({'error': 'Permission Denied'}), 403
     restaurant_id = get_restaurant_id()
     customer_id = request.get_json().get('customer_id')
-    dish_list = request.get_json().get('dishes_id')
+    dish_list = request.get_json().get('dishes')
     total_price = request.get_json().get('total_price')
     new_order = Orders(
         CustomerID = customer_id, RestaurantID = restaurant_id,
@@ -73,7 +73,7 @@ def add_order():
     db.session.commit()
     order_id = new_order.OrderID
 
-    dishes = [Order_Dish(OrderID = order_id, DishID = dish_id) for dish_id in dish_list]
+    dishes = [Order_Dish(OrderID = order_id, DishID = dish["dish_id"], Number = dish["number"]) for dish in dish_list]
     db.session.add_all(dishes)
     db.session.commit()
 
@@ -95,6 +95,6 @@ def finish_order(order_id):
     ordered_dish = Order_Dish.query.filter_by(OrderID=order_id).all()
     for dish in ordered_dish:
         dish_info = Dish_Info.query.filter_by(DishID=dish.DishID).first()
-        dish_info.TimesOfOrder += 1
+        dish_info.TimesOfOrder += dish.Number
     db.session.commit()
     return jsonify({'status': 'success'})

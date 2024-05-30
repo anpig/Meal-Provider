@@ -56,6 +56,7 @@ class Order_Dish(db.Model):
     SerialID = db.Column(db.Integer, primary_key=True)
     OrderID = db.Column(db.Integer)
     DishID = db.Column(db.Integer)
+    Number = db.Column(db.Integer)
 
     def __repr__(self):
         return f"<Order_Dish {self.OrderID}>"

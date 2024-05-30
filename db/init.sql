@@ -1,4 +1,17 @@
-DROP TABLE Staff_Info; DROP TABLE Dish_Info; DROP TABLE Restaurant_Info; DROP TABLE Order_Dish; DROP TABLE Orders; DROP TABLE Review; \
+CREATE DATABASE IF NOT EXISTS mydatabase;
+DROP USER IF EXISTS 'user'@'%';
+CREATE USER 'user'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON mydatabase.* TO 'user'@'%';
+FLUSH PRIVILEGES;
+USE mydatabase;
+
+DROP TABLE IF EXISTS Staff_Info; \
+DROP TABLE IF EXISTS Dish_Info; \
+DROP TABLE IF EXISTS Restaurant_Info; \
+DROP TABLE IF EXISTS Order_Dish; \
+DROP TABLE IF EXISTS Orders; \
+DROP TABLE IF EXISTS Review; \
+\
 CREATE TABLE Staff_Info ( \
     StaffID BIGINT PRIMARY KEY, \
     StaffName VARCHAR(255), \
@@ -61,7 +74,8 @@ INSERT INTO Restaurant_Info  (RestaurantName, PhoneNumber, OpenTime, CloseTime, 
 CREATE TABLE Order_Dish(
     SerialID BIGINT PRIMARY KEY AUTO_INCREMENT, \
     OrderID BIGINT, \
-    DishID BIGINT \
+    DishID BIGINT, \
+    Number INT \
 ); \
 \
 INSERT INTO Order_Dish (OrderID, DishID) VALUES \
@@ -83,8 +97,8 @@ CREATE TABLE Orders ( \
 \
 INSERT INTO Orders (CustomerID, RestaurantID, TotalPrice, OrderTime, Finish, Reviewed) VALUES \
     (100003, 1, 350, CURRENT_TIMESTAMP, FALSE, FALSE), \
-    (100006, 2, 150, '2021-06-01 12:00:00', TRUE, TRUE), \
-    (100005, 3, 350, '2021-06-01 20:00:00', TRUE, FALSE); \
+    (100006, 2, 30, '2021-06-01 12:00:00', TRUE, TRUE), \
+    (100005, 3, 350, '2021-06-01 20:00:00', TRUE, TRUE); \
 \
 CREATE TABLE Review( \
     SerialID BIGINT PRIMARY KEY AUTO_INCREMENT, \

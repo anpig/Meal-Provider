@@ -1,4 +1,4 @@
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import get_jwt, get_jwt_identity
 
 def check_permission(target_permission):
     jwt = get_jwt()
@@ -22,3 +22,6 @@ def get_restaurant_id():
     if jwt['position'].find('restaurant') == -1:
         return None
     return jwt['position'].split('_')[1]
+
+def get_user_id():
+    return get_jwt_identity()
