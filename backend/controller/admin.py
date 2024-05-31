@@ -126,3 +126,15 @@ def get_menus():
             'dishes': dish_list
         })
     return jsonify({'restaurants': returned_data})
+
+@jwt_required()
+def update_price():
+    if not check_permission('admin'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    dish_id = request.get_json().get('dish_id')
+    price = request.get_json().get('updated_price')
+    print(dish_id, price)
+    dish = Dish_Info.query.filter_by(DishID=dish_id).first()
+    dish.Price = price
+    db.session.commit()
+    return jsonify({'status': 'success'})

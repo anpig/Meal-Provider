@@ -327,7 +327,7 @@
 - set a flag in login api
 
 ### get menus of all restaurant
-> to do
+> done
 - endpoint: `/admin/get_menus`
 - method: GET
 - response
@@ -360,6 +360,23 @@
 ```
 
 ### update price
+> done
+- endpoint: `/admin/update_price`
+- method: POST
+- request
+```
+{
+    "dish_id": ,
+    "updated_price": 
+}
+```
+- response
+```
+{
+    "status": "success|fail",
+    "error": "error_msg" // if status is fail
+}
+```
 
 ### update menu
 > done
