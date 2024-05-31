@@ -2,33 +2,33 @@
   <div class="mx-auto bg-white px-5">
     <div class="flex flex-col-reverse lg:flex-row">
       <WorkerSidebar class="min-h-screen w-full shadow-lg lg:w-1/6"></WorkerSidebar>
-      <div class="min-h-screen w-full bg-white-100 lg:w-6/6">
+      <div class="bg-white-100 lg:w-6/6 min-h-screen w-full">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-center px-5">
           <div class="text-gray-800">
-            <div class="text-3xl font-bold">餐廳選擇
-            </div>
+            <div class="text-3xl font-bold">餐廳選擇</div>
           </div>
         </div>
 
         <!-- end categories -->
         <!-- products -->
-      
+
         <div class="mt-5 grid grid-cols-4 gap-4 overflow-y-auto px-5">
-          <div class="flex flex-col justify-between rounded-2xl shadow-lg  bg-white-100 border border-black-800 px-2 py-2 " v-for="restaurant in restaurants">
+          <div
+            class="bg-white-100 border-black-800 flex flex-col justify-between rounded-2xl border px-2 py-2 shadow-lg"
+            v-for="restaurant in restaurants"
+          >
             <a :href="restaurant.url">
               <div class="relative">
                 <img
-                  class="aspect-[3/2] w-full  h-1/2"
+                  class="aspect-[3/2] h-1/2 w-full"
                   :src="'/api' + restaurant.picture"
                   alt="Sunset in the mountains"
                 />
               </div>
-              <div class=" px-1 py-1">
-                <p>
-                  肯德基
-                </p>
-                <div class="flex items-center mt-2">
+              <div class="px-1 py-1">
+                <p>肯德基</p>
+                <div class="mt-2 flex items-center">
                   <svg
                     class="me-1 h-4 w-4 text-yellow-300"
                     aria-hidden="true"
@@ -54,10 +54,9 @@
             </a>
           </div>
         </div>
-        
+
         <!-- end products -->
       </div>
-     
     </div>
   </div>
 </template>
@@ -93,7 +92,6 @@ onMounted(async () => {
   restaurants.value.push(restaurants.value[0])
   restaurants.value.push(restaurants.value[0])
   restaurants.value.push(restaurants.value[0])
-  
 })
 
 const getRestaurantList = async () => {
