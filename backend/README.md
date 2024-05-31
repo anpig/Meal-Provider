@@ -326,8 +326,40 @@
 > how? To be discussed
 - set a flag in login api
 
-### get all menu and reviews
+### get menus of all restaurant
 > to do
+- endpoint: `/admin/get_menus`
+- method: GET
+- response
+```
+{
+    "restaurants": 
+    [
+        {
+            "restaurant_id": , 
+            "restaurant_name": ,
+            "phone": ,
+            "open_time": "HH:MM",
+            "close_time": "HH:MM",
+            "overall_rating": ,
+            "dishes": 
+            [
+                {
+                    "dish_id": ,
+                    "dish_name": ,
+                    "combo": ,
+                    "price": ,
+                    "available": true|false,
+                    "ordered_times": ,
+                    "rating": 
+                }
+            ]
+        }, 
+    ]
+}
+```
+
+### update price
 
 ### update menu
 > done

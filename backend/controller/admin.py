@@ -94,3 +94,35 @@ def update_menu():
             dish.Available = False
     db.session.commit()
     return jsonify({'status': 'success'})
+
+@jwt_required()
+def get_menus():
+    if not check_permission('admin'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    
+    returned_data = []
+    restaurants = Restaurant_Info.query.all()
+    for restaurant in restaurants:
+        restaurant_id = restaurant.RestaurantID
+        dishes = Dish_Info.query.filter_by(RestaurantID=restaurant_id).all()
+        dish_list = []
+        for dish in dishes:
+            dish_list.append({
+                'dish_id': dish.DishID,
+                'dish_name': dish.Name,
+                'combo': dish.Combo,
+                'price': dish.Price,
+                'available': dish.Available,
+                'ordered_times': dish.TimesOfOrder,
+                'rating': dish.Rating
+            })
+        returned_data.append({
+            'restaurant_id': restaurant_id,
+            'restaurant_name': restaurant.RestaurantName,
+            "phone": restaurant.PhoneNumber,
+            "open_time": str(restaurant.OpenTime)[:-3],
+            "close_time": str(restaurant.CloseTime)[:-3],
+            "overall_rating": restaurant.Rating,
+            'dishes': dish_list
+        })
+    return jsonify({'restaurants': returned_data})
