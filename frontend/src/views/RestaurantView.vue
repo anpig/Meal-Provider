@@ -1,5 +1,6 @@
 <template>
   <!-- component -->
+  <successDialog v-if="showDialog" @close="close()"></successDialog>
   <div class="mx-auto bg-white px-5">
     <div class="flex flex-col-reverse lg:flex-row">
       <RestaurantSidebar class="w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
@@ -172,10 +173,20 @@
             Submit Order
           </div>
         </div>
+        <div class="mt-5 px-5">
+          <div
+            style="cursor: pointer"
+            @click="test()"
+            class="rounded-md bg-yellow-500 px-4 py-4 text-center font-semibold text-white shadow-lg hover:bg-transparent hover:text-indigo-600"
+          >
+            Submit Order
+          </div>
+        </div>
         <!-- end button pay -->
       </div>
       <!-- end right section -->
     </div>
+    
   </div>
 </template>
 
@@ -203,6 +214,7 @@ const submitOrder = reactive<order>({
   dishes: []
 })
 const price = ref(0)
+const showDialog = ref(false)
 
 onMounted(async () => {
   const OuthResult = await restaurantService.checkOuth(userInfo.value.outh_token)
@@ -262,5 +274,13 @@ const deleteMeal = (index: number) => {
 const clearAllMeal = () => {
   userOrder.splice(0, userOrder.length)
   price.value = 0
+}
+
+const test = () => {
+  showDialog.value = true
+}
+
+const close = () => {
+  showDialog.value = false
 }
 </script>
