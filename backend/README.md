@@ -22,6 +22,7 @@
 > done
 - endpoint: `/login`
 - method: POST
+- 在提醒日期前或者已結清 -> notify = false
 - request body
     ```
     {
@@ -34,7 +35,8 @@
     {
         "outh_token": "",
         "user_identity": "restaurant|worker|admin",
-        "restaurant_id": "" // returned only when user_identity is restaurant 
+        "restaurant_id": "", // returned only when user_identity is restaurant 
+        "notify": true|false
     }
     ```
 
@@ -322,9 +324,29 @@
 ### notify unpaid user
 > to do
 > how? To be discussed
+- set a flag in login api
 
 ### get all menu and reviews
 > to do
 
 ### update menu
 > to do
+- endpoint: `/admin/update_menu`
+- method: POST
+- 所有在 available dish id 裡的餐點裡都會變 availabe，其他的都變 unavailable
+- request
+```
+{
+    "available_dish_id":
+    [
+
+    ]
+}
+```
+- response
+```
+{
+    "status": "success|fail",
+    "error": "error msg" // if status is fail
+}
+```
