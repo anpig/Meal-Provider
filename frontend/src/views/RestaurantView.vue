@@ -3,7 +3,7 @@
   <successDialog v-if="showDialog" @close="close()"  message="Yo have success submit the order"></successDialog>
   <div class="mx-auto bg-white px-5">
     <div class="flex flex-col-reverse lg:flex-row">
-      <RestaurantSidebar class="w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
+      <RestaurantSidebar class="min-h-screen w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
       <!-- left section -->
       <div class="min-h-screen w-full bg-gray-100 lg:w-3/6">
         <!-- header -->

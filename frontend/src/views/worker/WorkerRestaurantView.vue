@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-auto min-h-screen max-w-screen-xl bg-white p-5 sm:p-10 md:p-16">
-    <div class="flex flex-col-reverse gap-4 lg:flex-row">
-      <WorkerSidebar class="w-full shadow-lg lg:w-1/6"></WorkerSidebar>
+  <div class="mx-auto bg-white px-5">
+    <div class="flex flex-col-reverse lg:flex-row">
+      <WorkerSidebar class="min-h-screen w-full shadow-lg lg:w-1/6"></WorkerSidebar>
 
       <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 lg:w-5/6">
         <div
