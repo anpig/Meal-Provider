@@ -2,7 +2,7 @@ from flask import Blueprint
 from controller.root import login, ping
 from controller.main import get_restaurant_info, add_review, history, get_restaurant_list
 from controller.pos import get_menu, get_order, add_order, finish_order
-from controller.admin import add_dish, upload_picture
+from controller.admin import add_dish, upload_picture, update_menu
 
 bp_root = Blueprint('bp_root', __name__)
 bp_main = Blueprint('bp_main', __name__)
@@ -28,3 +28,4 @@ bp_pos.route('/finish/<order_id>', methods=['POST'])(finish_order)
 # prefix: /admin
 bp_admin.route('/add_dish', methods=['POST'])(add_dish)
 bp_admin.route('/upload/<type>', methods=['POST'])(upload_picture)
+bp_admin.route('/update_menu', methods=['POST'])(update_menu)

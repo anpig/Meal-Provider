@@ -330,7 +330,7 @@
 > to do
 
 ### update menu
-> to do
+> done
 - endpoint: `/admin/update_menu`
 - method: POST
 - 所有在 available dish id 裡的餐點裡都會變 availabe，其他的都變 unavailable

@@ -70,3 +70,27 @@ def upload_picture(type):
         db.session.commit()
     
     return jsonify({'status': 'success', 'filename': filename})
+
+@jwt_required()
+def update_menu():
+    if not check_permission('admin'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    
+    dishes = request.get_json().get('available_dish_id')
+    dishes.sort()
+    head = 0
+    
+    dish_info = Dish_Info.query.order_by(Dish_Info.DishID).all()
+    if dish_info[-1].DishID < dishes[-1]:
+        return jsonify({'status': 'fail', 'error': f'Invalid dish id {dishes[-1]} or below'})
+    for dish in dish_info:
+        if dish.DishID == dishes[head]:
+            dish.Available = True
+            if head != len(dishes) - 1:
+                head += 1
+        elif dish.DishID > dishes[head] and head != len(dishes) - 1:
+            return jsonify({'status': 'fail', 'error': f'Invalid dish id {dishes[head]}'})
+        else:
+            dish.Available = False
+    db.session.commit()
+    return jsonify({'status': 'success'})
