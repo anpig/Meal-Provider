@@ -14,17 +14,22 @@ const router = createRouter({
       path: '/restaurant',
       name: 'Restaurant',
       component: RestaurantView
+    },
+    {
+      path: '/worker',
+      name: 'Worker',
+      component: () => import('@/views/worker/WorkerView.vue')
+    },
+    {
+      path: '/history-order',
+      name: 'History Order',
+      component: () => import('@/views/worker/HistoryOrderView.vue')
+    },
+    {
+      path: '/worker/restaurant/:id',
+      name: 'WorkerRestaurant',
+      component: () => import('@/views/worker/WorkerRestaurantView.vue')
     }
-    // {
-    //   path: '/worker',
-    //   name: 'Worker',
-    //   component: () => import('@/views/WorkerView.vue')
-    // },
-    // {
-    //   path: 'admin',
-    //   name: 'Admin',
-    //   component: () => import('@/views/AdminView.vue')
-    // }
   ]
 })
 
