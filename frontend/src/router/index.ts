@@ -29,7 +29,21 @@ const router = createRouter({
       path: '/worker/restaurant/:id',
       name: 'WorkerRestaurant',
       component: () => import('@/views/worker/WorkerRestaurantView.vue')
+    },
+    {
+      path: '/restaurant/history-order',
+      component: () => import('@/views/restaurant/RestaurantHistoryOrder.vue')
     }
+    // {
+    //   path: '/worker',
+    //   name: 'Worker',
+    //   component: () => import('@/views/WorkerView.vue')
+    // },
+    // {
+    //   path: 'admin',
+    //   name: 'Admin',
+    //   component: () => import('@/views/AdminView.vue')
+    // }
   ]
 })
 

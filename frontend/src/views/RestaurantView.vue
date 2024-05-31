@@ -1,6 +1,6 @@
 <template>
   <!-- component -->
-  <successDialog v-if="showDialog" @close="close()"></successDialog>
+  <successDialog v-if="showDialog" @close="close()"  message="Yo have success submit the order"></successDialog>
   <div class="mx-auto bg-white px-5">
     <div class="flex flex-col-reverse lg:flex-row">
       <RestaurantSidebar class="w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
@@ -35,18 +35,30 @@
           <div
             style="cursor: pointer"
             @click="showName(meal)"
-            class="flex h-32 flex-col justify-between rounded-md border bg-white px-3 py-3"
+            class="flex h-1/3 flex-col justify-between rounded-md border bg-white px-3 py-3"
             v-for="meal in meals"
           >
             <div>
               <div class="font-bold text-gray-800">{{ meal.name }}</div>
             </div>
+            <div>
+              <div class=" text-gray-500">一極棒美味</div>
+            </div>
             <div class="flex flex-row items-center justify-between">
               <span class="self-end text-lg font-bold text-yellow-500">${{ meal.price }}</span>
-              <img :src="meal.picture" class="h-14 w-14 rounded-md object-cover" alt="" />
+              <img :src="'http://localhost:5000/static/dish/' + meal.picture" class="h-14 w-14 rounded-md object-cover" alt="" />
+
             </div>
+            <button type="button" class="inline-flex mt-1 items-center justify-center rounded-lg border border-orange-400 px-5 py-2.5 text-sm font-medium bg-orange-200 text-black hover:bg-white focus:outline-none focus:ring-4 focus:ring-primary-300">
+              <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
+              </svg>
+              Add to cart
+            </button>
+             
           </div>
         </div>
+        
         <!-- end products -->
       </div>
       <!-- end left section -->
@@ -224,6 +236,7 @@ onMounted(async () => {
   }
   await getRestaurant()
   meals.value = restaurantInfo.meals.filter((meal: any) => meal.combo === false)
+  console.log(restaurantInfo)
 })
 const getRestaurant = async () => {
   const data = await restaurantService.getRestaurant(userInfo.value.outh_token)
