@@ -18,6 +18,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     KFCHomePage: typeof import('./src/components/KFCHomePage.vue')['default']
+    RateOrderDialog: typeof import('./src/components/RateOrderDialog.vue')['default']
     RestaurantSidebar: typeof import('./src/components/RestaurantSidebar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
