@@ -1,6 +1,4 @@
-<template>
-it works
-</template>
+<template>it works</template>
 
 <script setup lang="ts">
 defineProps<{
