@@ -14,6 +14,13 @@ export const useUserStore = defineStore({
   actions: {
     setUserInfo(user: user) {
       this.userInfo = user
+    },
+    reset() {
+      this.userInfo = {
+        outh_token: '',
+        user_identity: '',
+        restaurant_id: ''
+      } as user
     }
   }
 })

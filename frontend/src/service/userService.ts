@@ -1,6 +1,7 @@
 import type { user } from '../types/user'
+import { useUserStore } from '@/store/user'
 
-export default class userLoginService {
+export default class userService {
   static async userLogin(user_account: string, user_password: string): Promise<user> {
     console.log(user_account, user_password)
     const response = await fetch('/api/login', {
@@ -12,5 +13,8 @@ export default class userLoginService {
     })
     const result = await response.json()
     return result
+  }
+  static async userLogout(): Promise<void> {
+    useUserStore().reset()
   }
 }

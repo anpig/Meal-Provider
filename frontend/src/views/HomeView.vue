@@ -111,7 +111,7 @@
 import { reactive, ref } from 'vue'
 import router from '@/router/index'
 import { useUserStore } from '@/store/user'
-import userLoginService from '@/service/userLoginService'
+import userService from '@/service/userService'
 
 const userStore = useUserStore()
 const loginStatus = ref(0)
@@ -121,7 +121,7 @@ const userInput = reactive({
 })
 
 const submit = async () => {
-  const userInfo = await userLoginService.userLogin(userInput.account, userInput.password)
+  const userInfo = await userService.userLogin(userInput.account, userInput.password)
   console.log(userInfo)
   if (userInfo.user_identity === 'invalid_user') {
     loginStatus.value = 1
