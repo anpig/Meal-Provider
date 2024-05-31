@@ -14,7 +14,7 @@
           </div>
           <div class="flex flex-row items-center justify-between">
             <span class="self-end text-lg font-bold text-yellow-500">${{ meal.price }}</span>
-            <img :src="meal.picture" class="h-14 w-14 rounded-md object-cover" alt="" />
+            <img :src="'/api' + meal.picture" class="h-14 w-14 rounded-md object-cover" alt="" />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@
             <div class="relative">
               <img
                 class="aspect-[3/2] w-full"
-                src="https://media-cdn.tripadvisor.com/media/photo-s/1d/0c/d5/e8/caption.jpg"
+                :src="'/api' + restaurant.picture"
                 alt="Sunset in the mountains"
               />
             </div>

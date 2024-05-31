@@ -46,7 +46,7 @@
             </div>
             <div class="flex flex-row items-center justify-between">
               <span class="self-end text-lg font-bold text-yellow-500">${{ meal.price }}</span>
-              <img :src="'http://localhost:5000/static/dish/' + meal.picture" class="h-14 w-14 rounded-md object-cover" alt="" />
+              <img :src="'/api' + meal.picture" class="h-14 w-14 rounded-md object-cover" alt="" />
 
             </div>
             <button type="button" class="inline-flex mt-1 items-center justify-center rounded-lg border border-orange-400 px-5 py-2.5 text-sm font-medium bg-orange-200 text-black hover:bg-white focus:outline-none focus:ring-4 focus:ring-primary-300">
@@ -81,7 +81,7 @@
         <div class="mt-5 h-2/5 overflow-y-auto px-5 py-4">
           <div class="mb-4 flex flex-row items-center justify-between" v-for="(meal, index) in userOrder">
             <div class="flex w-2/5 flex-row items-center">
-              <img :src="meal.picture" class="h-10 w-10 rounded-md object-cover" alt="test" />
+              <img :src="'/api' + meal.picture" class="h-10 w-10 rounded-md object-cover" alt="test" />
               <span class="ml-4 text-sm font-semibold">{{ meal.name }}</span>
             </div>
             <div class="flex w-32 justify-between">
