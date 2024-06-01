@@ -18,10 +18,12 @@
     - notify unpaid user
     - get all menu
     - update menu
+    - add restaurant
 ## login
 > done
 - endpoint: `/login`
 - method: POST
+- 在提醒日期前或者已結清 -> notify = false
 - request body
     ```
     {
@@ -34,7 +36,8 @@
     {
         "outh_token": "",
         "user_identity": "restaurant|worker|admin",
-        "restaurant_id": "" // returned only when user_identity is restaurant 
+        "restaurant_id": "", // returned only when user_identity is restaurant 
+        "notify": true|false
     }
     ```
 
@@ -136,6 +139,19 @@
     "error": "error_msg" // if status is error
 }
 ```
+### get customer name
+> done
+- endpoint: `/pos/worker_info/<id>`
+- method: GET
+- response
+```
+{
+    "id": ,
+    "name": ,
+    "phone": 
+}
+```
+
 
 ## main page (for worker)
 ### get list of restaurants
@@ -149,7 +165,7 @@
     [
         {
             "id": ,
-            "name": ,
+            "restaurant": ,
             "rating": ,
             "picture": 
         },
@@ -313,18 +329,116 @@
 }
 ```
 ### get monthly report
-> to do
+> done
 - endpoint: `/admin/monthly_report`
 - method: `GET`
+- you can only request a monthly report after the whole month ends
+- request: 
+```
+{
+    "year": ,
+    "month": 
+}
+```
+- response: automatically download the csv file
+### notify unpaid user
+> done
+> how? To be discussed
+- set a flag in login api
+
+### get menus of all restaurant
+> done
+- endpoint: `/admin/get_menus`
+- method: GET
 - response
 ```
+{
+    "restaurants": 
+    [
+        {
+            "restaurant_id": , 
+            "restaurant_name": ,
+            "phone": ,
+            "open_time": "HH:MM",
+            "close_time": "HH:MM",
+            "overall_rating": ,
+            "dishes": 
+            [
+                {
+                    "dish_id": ,
+                    "dish_name": ,
+                    "combo": ,
+                    "price": ,
+                    "available": true|false,
+                    "ordered_times": ,
+                    "rating": 
+                }
+            ]
+        }, 
+    ]
+}
 ```
-### notify unpaid user
-> to do
-> how? To be discussed
 
-### get all menu and reviews
-> to do
+### update price
+> done
+- endpoint: `/admin/update_price`
+- method: POST
+- request
+```
+{
+    "dish_id": ,
+    "updated_price": 
+}
+```
+- response
+```
+{
+    "status": "success|fail",
+    "error": "error_msg" // if status is fail
+}
+```
 
 ### update menu
-> to do
+> done
+- endpoint: `/admin/update_menu`
+- method: POST
+- 所有在 available dish id 裡的餐點裡都會變 availabe，其他的都變 unavailable
+- request
+```
+{
+    "available_dish_id":
+    [
+
+    ]
+}
+```
+- response
+```
+{
+    "status": "success|fail",
+    "error": "error msg" // if status is fail
+}
+```
+
+### add restaurant
+> done
+- endpoint: `/admin/add_restaurant`
+- method: POST
+- request
+```
+{
+    "restaurant_name": ,
+    "phone": ,
+    "open_time": "HH:SS",
+    "close_time": "HH:SS",
+    "description": 
+}
+```
+- response
+```
+{
+    "status": "success|fail",
+    "restaurant_id": , // if status is success
+    "error": "error msg" // if status is fail
+}
+```

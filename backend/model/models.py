@@ -12,6 +12,7 @@ class Staff_Info(db.Model):
     Gmail = db.Column(db.String(255))
     Password = db.Column(db.String(255))
     PhoneNumber = db.Column(db.Integer)
+    Paid = db.Column(db.Boolean)
 
     def __repr__(self):
         return f"<Staff_Information {self.StaffID}>"

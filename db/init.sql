@@ -18,15 +18,9 @@ CREATE TABLE Staff_Info (
     Position VARCHAR(255),
     Gmail VARCHAR(255),
     Password VARCHAR(255),
-    PhoneNumber VARCHAR(20)
+    PhoneNumber VARCHAR(20),
+    Paid BOOLEAN
 );
-INSERT INTO Staff_Info (StaffID, StaffName, Position, Gmail, Password, PhoneNumber) VALUES
-    (100001, 'ycy.yo', 'restaurant_1', 'ycy.yo@gmail.com', 'test', '0909090909'),
-    (100002, 'amber chen', 'admin', 'hello@world', 'test', '0910101010'),
-    (100003, 'whoami', 'restaurant_2', 'who@ami', 'test', '0911111111'),
-    (100004, 'benson', 'worker', 'benson@gmail.com', 'test', '0912345678'),
-    (100005, 'detaomega', 'worker', 'detaomega@gmail.com', 'test', '0912345678'),
-    (100006, 'BruceLin', 'worker', 'bruce@gmail.com', 'test', '0943134344');
 
 CREATE TABLE Dish_Info(
     DishID BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -42,18 +36,6 @@ CREATE TABLE Dish_Info(
     Rating FLOAT
 );
 
-INSERT INTO Dish_Info (RestaurantID, Name, Description, Combo, Picture, Price, Available, TimesOfOrder, RatingCnt, Rating) VALUES
-    (1, 'Fried Chicken', 'Delicious', FALSE, 'chicken.jpg', 200, TRUE, 1, 0, 0),
-    (1, 'Hamburger', 'Delicious', FALSE, 'chicken.jpg', 150, TRUE, 1, 0, 0),
-    (1, 'French Fries', 'Delicious', FALSE, 'chicken.jpg', 100, TRUE, 0, 0, 0),
-    (1, 'Six Nuggets with Coke', 'Delicious', TRUE, 'chicken.jpg', 150, TRUE, 0, 0, 0),
-    (2, 'Cookie', 'Delicious', FALSE, 'chicken.jpg', 30, TRUE, 0, 0, 0),
-    (2, 'Veggie Delite', 'Delicious', FALSE, 'chicken.jpg', 150, FALSE, 1, 1, 5),
-    (2, 'Tuna', 'Delicious', FALSE, 'chicken.jpg', 170, TRUE, 0, 0, 0),
-    (3, 'Pepperoni Pizza', 'Delicious', FALSE, 'chicken.jpg', 200, TRUE, 1, 1, 3),
-    (3, 'Hawaiian Pizza', 'Delicious', FALSE, 'chicken.jpg', 150, TRUE, 1, 1, 4),
-    (3, 'Cheese Pizza', 'Delicious', FALSE, 'chicken.jpg', 100, FALSE, 0, 0, 0);
-
 CREATE TABLE Restaurant_Info (
     RestaurantID BIGINT PRIMARY KEY AUTO_INCREMENT,
     RestaurantName VARCHAR(255),
@@ -66,24 +48,12 @@ CREATE TABLE Restaurant_Info (
     Rating FLOAT
 );
 
-INSERT INTO Restaurant_Info  (RestaurantName, PhoneNumber, OpenTime, CloseTime, Description, Picture, RatingCnt, Rating) VALUES
-    ('KFC', '0912345678', '12:00:00', '22:00:00', 'Fast Food Restaurant', 'kfc.png', 0, 0),
-    ('Subway', '0912345678', '08:00:00', '22:00:00', 'Sandwich', 'kfc.png', 1, 5),
-    ('Pizza Hut', '0912345678', '08:00:00', '22:00:00', 'Pizza', 'kfc.png', 1, 4);
-
 CREATE TABLE Order_Dish(
     SerialID BIGINT PRIMARY KEY AUTO_INCREMENT,
     OrderID BIGINT,
     DishID BIGINT,
     Number INT
 );
-
-INSERT INTO Order_Dish (OrderID, DishID) VALUES
-    (1, 1),
-    (1, 2),
-    (2, 5),
-    (3, 7),
-    (3, 8);
 
 CREATE TABLE Orders (
     OrderID BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -95,11 +65,6 @@ CREATE TABLE Orders (
     Reviewed BOOLEAN
 );
 
-INSERT INTO Orders (CustomerID, RestaurantID, TotalPrice, OrderTime, Finish, Reviewed) VALUES
-    (100003, 1, 350, CURRENT_TIMESTAMP, FALSE, FALSE),
-    (100006, 2, 30, '2021-06-01 12:00:00', TRUE, TRUE),
-    (100005, 3, 350, '2021-06-01 20:00:00', TRUE, TRUE);
-
 CREATE TABLE Review(
     SerialID BIGINT PRIMARY KEY AUTO_INCREMENT,
     OrderID BIGINT,
@@ -109,9 +74,46 @@ CREATE TABLE Review(
     Time TIMESTAMP
 );
 
+INSERT INTO Staff_Info (StaffID, StaffName, Position, Gmail, Password, PhoneNumber, Paid) VALUES
+    (100001, 'ycy.yo', 'restaurant_1', 'ycy.yo@gmail.com', 'test', '0909090909', FALSE),
+    (100002, 'amber chen', 'admin', 'hello@world', 'test', '0910101010', FALSE),
+    (100003, 'whoami', 'restaurant_2', 'who@ami', 'test', '0911111111', FALSE),
+    (100004, 'benson', 'worker', 'benson@gmail.com', 'test', '0912345678', FALSE),
+    (100005, 'detaomega', 'worker', 'detaomega@gmail.com', 'test', '0912345678', FALSE),
+    (100006, 'BruceLin', 'worker', 'bruce@gmail.com', 'test', '0943134344', FALSE);
+
+INSERT INTO Dish_Info (RestaurantID, Name, Description, Combo, Picture, Price, Available, TimesOfOrder, RatingCnt, Rating) VALUES
+    (1, 'Fried Chicken', 'Delicious', FALSE, 'chicken.jpg', 200, TRUE, 1, 0, 0),
+    (1, 'Hamburger', 'Delicious', FALSE, 'chicken.jpg', 150, TRUE, 1, 0, 0),
+    (1, 'French Fries', 'Delicious', FALSE, 'chicken.jpg', 100, TRUE, 0, 0, 0),
+    (1, 'Six Nuggets with Coke', 'Delicious', TRUE, 'chicken.jpg', 150, TRUE, 0, 0, 0),
+    (2, 'Cookie', 'Delicious', FALSE, 'chicken.jpg', 30, TRUE, 1, 1, 5),
+    (2, 'Veggie Delite', 'Delicious', FALSE, 'chicken.jpg', 150, FALSE, 0, 0, 0),
+    (2, 'Tuna', 'Delicious', FALSE, 'chicken.jpg', 170, TRUE, 0, 0, 0),
+    (3, 'Pepperoni Pizza', 'Delicious', FALSE, 'chicken.jpg', 200, TRUE, 1, 1, 3),
+    (3, 'Hawaiian Pizza', 'Delicious', FALSE, 'chicken.jpg', 150, TRUE, 2, 1, 4),
+    (3, 'Cheese Pizza', 'Delicious', FALSE, 'chicken.jpg', 100, FALSE, 0, 0, 0);
+
+INSERT INTO Restaurant_Info  (RestaurantName, PhoneNumber, OpenTime, CloseTime, Description, Picture, RatingCnt, Rating) VALUES
+    ('KFC', '0912345678', '12:00:00', '22:00:00', 'Fast Food Restaurant', 'kfc.png', 0, 0),
+    ('Subway', '0912345678', '08:00:00', '22:00:00', 'Sandwich', 'kfc.png', 1, 5),
+    ('Pizza Hut', '0912345678', '08:00:00', '22:00:00', 'Pizza', 'kfc.png', 1, 4);
+
+INSERT INTO Order_Dish (OrderID, DishID, Number) VALUES
+    (1, 1, 1),
+    (1, 2, 1),
+    (2, 5, 1),
+    (3, 8, 1),
+    (3, 9, 2);
+
+INSERT INTO Orders (CustomerID, RestaurantID, TotalPrice, OrderTime, Finish, Reviewed) VALUES
+    (100003, 1, 350, CURRENT_TIMESTAMP, FALSE, FALSE),
+    (100006, 2, 30, '2021-06-01 12:00:00', TRUE, TRUE),
+    (100005, 3, 500, '2021-06-01 20:00:00', TRUE, TRUE);
+
 INSERT INTO Review (OrderID, CustomerID, DishID, Rating, Time) VALUES
-    (3, 100005, 7, 3, '2021-06-01 21:00:00'),
-    (3, 100005, 8, 4, '2021-06-01 21:00:00'),
+    (3, 100005, 8, 3, '2021-06-01 21:00:00'),
+    (3, 100005, 9, 4, '2021-06-01 21:00:00'),
     (3, 100005, 0, 4, '2021-06-01 21:00:00'),
     (2, 100006, 5, 5, '2021-06-01 15:00:00'),
     (2, 100006, 0, 5, '2021-06-01 15:00:00');

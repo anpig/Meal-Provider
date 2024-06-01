@@ -115,7 +115,7 @@ def get_restaurant_list():
     for restaurant in restaurants:
         restaurant_list.append({
             'id': restaurant.RestaurantID,
-            'name': restaurant.RestaurantName,
+            'restaurant': restaurant.RestaurantName,
             'picture': '/static/cover/' + restaurant.Picture,
             'rating': restaurant.Rating
         })
