@@ -34,8 +34,10 @@ import { useRoute } from 'vue-router'
 import { ref, computed, reactive, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import workerService from '@/service/workerService'
+import userService from '@/service/userService'
 import { useUserStore } from '@/store/user'
 import type { restaurant, meal } from '@/types/worker'
+import router from '@/router'
 
 const userStore = useUserStore()
 const { userInfo } = storeToRefs(userStore)
@@ -45,6 +47,11 @@ const restaurantInfo = ref<restaurant>()
 const restaurantMeals = ref<meal[]>([])
 
 onMounted(async () => {
+  const OuthResult = await userService.userCheckOuth()
+  if (OuthResult === false) {
+    alert('請重新登入')
+    router.push('/')
+  }
   await getRestaurant()
 })
 

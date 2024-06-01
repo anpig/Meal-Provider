@@ -220,6 +220,7 @@
 import { ref, computed, reactive, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import restaurantService from '@/service/restaurantService'
+import userService from '@/service/userService'
 import type { restaurant, meal, chart } from '@/types/restaurant'
 import { useUserStore } from '@/store/user'
 import router from '@/router'
@@ -243,7 +244,7 @@ const price = ref(0)
 const showDialog = ref(false)
 
 onMounted(async () => {
-  const OuthResult = await restaurantService.checkOuth(userInfo.value.outh_token)
+  const OuthResult = await userService.userCheckOuth()
   if (OuthResult === false) {
     alert('請重新登入')
     router.push('/')
