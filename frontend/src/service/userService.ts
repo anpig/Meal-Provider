@@ -17,4 +17,11 @@ export default class userService {
   static async userLogout(): Promise<void> {
     useUserStore().reset()
   }
+  static async userCheckOuth(): Promise<boolean> {
+    if (useUserStore().$state.userInfo.outh_token !== '') {
+      return true
+    } else {
+      return false
+    }
+  }
 }
