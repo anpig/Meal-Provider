@@ -138,6 +138,19 @@
     "error": "error_msg" // if status is error
 }
 ```
+### get customer name
+> done
+- endpoint: `/pos/worker_info/<id>`
+- method: GET
+- response
+```
+{
+    "id": ,
+    "name": ,
+    "phone": 
+}
+```
+
 
 ## main page (for worker)
 ### get list of restaurants
@@ -151,7 +164,7 @@
     [
         {
             "id": ,
-            "name": ,
+            "restaurant": ,
             "rating": ,
             "picture": 
         },
