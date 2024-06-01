@@ -3,7 +3,7 @@
   <successDialog v-if="showDialog" @close="close()" message="Yo have success submit the order"></successDialog>
   <div class="mx-auto bg-white">
     <div class="flex flex-col-reverse lg:flex-row">
-      <RestaurantSidebar class="min-h-screen w-full shadow-lg lg:w-1/6 justify-start"></RestaurantSidebar>
+      <RestaurantSidebar class="min-h-screen w-full justify-start shadow-lg lg:w-1/6"></RestaurantSidebar>
       <!-- left section -->
       <div class="min-h-screen w-full bg-gray-50 lg:w-3/6">
         <!-- header -->
@@ -17,14 +17,14 @@
         <div class="mt-5 flex flex-row px-5">
           <button
             @click="changeCategorie(false)"
-            class="w-1/6 rounded-2xl hover:bg-white hover:border-yellow-450 bg-yellow-200 px-5 py-1   border border-yellow-400"
+            class="hover:border-yellow-450 w-1/6 rounded-2xl border border-yellow-400 bg-yellow-200 px-5 py-1 hover:bg-white"
           >
             單點
           </button>
 
           <button
             @click="changeCategorie(true)"
-            class="mx-5 w-1/6 rounded-2xl hover:bg-white hover:border-yellow-450 bg-yellow-200 px-10 py-1   border border-yellow-400"
+            class="hover:border-yellow-450 mx-5 w-1/6 rounded-2xl border border-yellow-400 bg-yellow-200 px-10 py-1 hover:bg-white"
           >
             套餐
           </button>
@@ -50,7 +50,7 @@
             </div>
             <button
               type="button"
-              class=" mt-1 inline-flex items-center justify-center rounded-lg border border-orange-400 bg-orange-200 px-5 py-2.5 text-sm font-medium text-black hover:bg-white focus:outline-none focus:ring-4"
+              class="mt-1 inline-flex items-center justify-center rounded-lg border border-orange-400 bg-orange-200 px-5 py-2.5 text-sm font-medium text-black hover:bg-white focus:outline-none focus:ring-4"
             >
               <svg
                 class="-ms-2 me-2 h-5 w-5"
@@ -78,7 +78,7 @@
       </div>
       <!-- end left section -->
       <!-- right section -->
-      <div class="w-full shadow-lg lg:w-2/6 text-right">
+      <div class="w-full text-right shadow-lg lg:w-2/6">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-xl font-bold">Current Order</div>
@@ -220,7 +220,7 @@
 import { ref, computed, reactive, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import restaurantService from '@/service/restaurantService'
-import type { restaurant, meal, order } from '@/types/restaurant'
+import type { restaurant, meal, chart } from '@/types/restaurant'
 import { useUserStore } from '@/store/user'
 import router from '@/router'
 
@@ -234,7 +234,7 @@ const restaurantInfo = reactive<restaurant>({
 })
 
 const userOrder = reactive<any[]>([])
-const submitOrder = reactive<order>({
+const submitOrder = reactive<chart>({
   customer_id: 100006,
   total_price: 0,
   dishes: []
