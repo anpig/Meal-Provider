@@ -20,7 +20,7 @@ def get_menu():
             'price': dish.Price,
             'rating': dish.Rating,
             "order_times": dish.TimesOfOrder,
-            "picture": dish.Picture,
+            "picture": '/static/dish/' + dish.Picture,
             "available": dish.Available
         })
     return jsonify({'meals': menu})
