@@ -1,11 +1,11 @@
 <template>
   <!-- component -->
   <successDialog v-if="showDialog" @close="close()" message="Yo have success submit the order"></successDialog>
-  <div class="mx-auto bg-white px-5">
+  <div class="mx-auto bg-white">
     <div class="flex flex-col-reverse lg:flex-row">
-      <RestaurantSidebar class="min-h-screen w-full shadow-lg lg:w-1/6"></RestaurantSidebar>
+      <RestaurantSidebar class="min-h-screen w-full shadow-lg lg:w-1/6 justify-start"></RestaurantSidebar>
       <!-- left section -->
-      <div class="min-h-screen w-full bg-gray-100 lg:w-3/6">
+      <div class="min-h-screen w-full bg-gray-50 lg:w-3/6">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-gray-800">
@@ -17,14 +17,14 @@
         <div class="mt-5 flex flex-row px-5">
           <button
             @click="changeCategorie(false)"
-            class="w-1/6 rounded-2xl bg-yellow-500 px-5 py-1 text-sm text-white hover:bg-transparent hover:text-indigo-600"
+            class="w-1/6 rounded-2xl hover:bg-white hover:border-yellow-450 bg-yellow-200 px-5 py-1   border border-yellow-400"
           >
             單點
           </button>
 
           <button
             @click="changeCategorie(true)"
-            class="w-1/6 rounded-2xl border border-yellow-500 bg-transparent px-4 py-2 font-semibold text-yellow-500 hover:border-transparent hover:bg-yellow-500 hover:text-white"
+            class="mx-5 w-1/6 rounded-2xl hover:bg-white hover:border-yellow-450 bg-yellow-200 px-10 py-1   border border-yellow-400"
           >
             套餐
           </button>
@@ -50,7 +50,7 @@
             </div>
             <button
               type="button"
-              class="focus:ring-primary-300 mt-1 inline-flex items-center justify-center rounded-lg border border-orange-400 bg-orange-200 px-5 py-2.5 text-sm font-medium text-black hover:bg-white focus:outline-none focus:ring-4"
+              class=" mt-1 inline-flex items-center justify-center rounded-lg border border-orange-400 bg-orange-200 px-5 py-2.5 text-sm font-medium text-black hover:bg-white focus:outline-none focus:ring-4"
             >
               <svg
                 class="-ms-2 me-2 h-5 w-5"
@@ -78,7 +78,7 @@
       </div>
       <!-- end left section -->
       <!-- right section -->
-      <div class="w-full shadow-lg lg:w-2/6">
+      <div class="w-full shadow-lg lg:w-2/6 text-right">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-xl font-bold">Current Order</div>

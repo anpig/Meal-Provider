@@ -1,6 +1,6 @@
 <template>
   <div
-    class="shadow-blue-gray-900/5 relative w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl"
+    class="bg-amber-50 shadow-blue-gray-900/5 relative w-full max-w-[20rem] flex-col rounded-xl bg-clip-border p-4 text-gray-700 shadow-xl"
   >
     <nav class="text-blue-gray-700 flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal">
       <router-link

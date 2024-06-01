@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto bg-white px-5">
+  <div class="mx-auto bg-white">
     <div class="flex flex-col-reverse lg:flex-row">
       <WorkerSidebar class="min-h-screen w-full shadow-lg lg:w-1/6"></WorkerSidebar>
       <div class="bg-white-100 lg:w-6/6 min-h-screen w-full">

@@ -1,6 +1,6 @@
 <template>
   <RateOrderDialog v-if="showDialog" @close="close()"></RateOrderDialog>
-  <div class="mx-auto bg-white px-5">
+  <div class="mx-auto bg-white">
     <div class="flex flex-col-reverse lg:flex-row">
       <WorkerSidebar class="min-h-screen w-full shadow-lg lg:w-1/6"></WorkerSidebar>
       <div class="mx-auto min-h-screen max-w-7xl px-4 py-16 sm:px-6 lg:w-5/6 lg:px-8 lg:pb-24">
