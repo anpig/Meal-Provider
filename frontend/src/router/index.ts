@@ -33,6 +33,10 @@ const router = createRouter({
     {
       path: '/restaurant/history-order',
       component: () => import('@/views/restaurant/RestaurantHistoryOrder.vue')
+    },
+    {
+      path: '/admin',
+      component: () => import('@/views/admin/AdminView.vue')
     }
     // {
     //   path: '/worker',
