@@ -1,6 +1,6 @@
 from flask import request, jsonify, send_from_directory
 from random import shuffle
-from model.models import Dish_Info, db, Restaurant_Info, Orders
+from model.models import Dish_Info, db, Restaurant_Info, Orders, Staff_Info
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
 from datetime import datetime, timedelta
@@ -221,3 +221,10 @@ def add_restaurant():
     db.session.add(new_restaurant)
     db.session.commit()
     return jsonify({'status': 'success', 'restaurant_id': new_restaurant.RestaurantID})
+
+def reset_paid_flag():
+    print("Resetting paid flag")
+    staffs = Staff_Info.query.all()
+    for staff in staffs:
+        staff.Paid = False
+    db.session.commit()

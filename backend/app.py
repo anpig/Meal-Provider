@@ -1,7 +1,11 @@
 from flask import Flask, jsonify
 from model.models import db
+import atexit
+from datetime import datetime
 from route.routes import bp_root, bp_main, bp_pos, bp_admin
+from controller.admin import reset_paid_flag
 from flask_jwt_extended import JWTManager
+from apscheduler.schedulers.background import BackgroundScheduler
 
 def create_app():
     app = Flask(__name__)
@@ -11,6 +15,12 @@ def create_app():
     db.init_app(app)
     jwt = JWTManager(app)
     jwt.init_app(app)
+
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(reset_paid_flag, 'cron', day=1, hour=0, minute=0, second=0, id='reset_paid_flag')
+    scheduler.start()
+    atexit.register(lambda: scheduler.shutdown())
+
     return app
 
 app = create_app()

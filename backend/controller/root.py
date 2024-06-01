@@ -3,7 +3,7 @@ from model.models import Staff_Info
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from datetime import datetime
 
-NOTIFY_DATE = 1
+NOTIFY_DATE = 5
 
 def login():
     account = request.get_json().get("user_account")
@@ -15,7 +15,7 @@ def login():
     
     today = datetime.now().day
     notify = False
-    if not staff.Paid and today >= NOTIFY_DATE:
+    if not staff.Paid and today <= NOTIFY_DATE:
         notify = True
     
     if staff.Position.find("restaurant") == -1:
