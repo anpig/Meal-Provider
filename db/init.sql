@@ -79,12 +79,12 @@ CREATE TABLE Order_Dish(
     Number INT
 );
 
-INSERT INTO Order_Dish (OrderID, DishID) VALUES
-    (1, 1),
-    (1, 2),
-    (2, 5),
-    (3, 7),
-    (3, 8);
+INSERT INTO Order_Dish (OrderID, DishID, Number) VALUES
+    (1, 1, 1),
+    (1, 2, 1),
+    (2, 5, 1),
+    (3, 7, 1),
+    (3, 8, 1);
 
 CREATE TABLE Orders (
     OrderID BIGINT PRIMARY KEY AUTO_INCREMENT,

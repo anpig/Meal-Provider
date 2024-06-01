@@ -3,7 +3,7 @@ from controller.root import login, ping
 from controller.main import get_restaurant_info, add_review, history, get_restaurant_list
 from controller.pos import get_menu, get_order, add_order, finish_order, get_worker_info
 from controller.admin import add_dish, upload_picture, update_menu
-from controller.admin import get_menus, update_price, get_monthly_report
+from controller.admin import get_menus, update_price, get_monthly_report, add_restaurant
 
 bp_root = Blueprint('bp_root', __name__)
 bp_main = Blueprint('bp_main', __name__)
@@ -34,3 +34,4 @@ bp_admin.route('/update_menu', methods=['POST'])(update_menu)
 bp_admin.route('/get_menus', methods=['GET'])(get_menus)
 bp_admin.route('/update_price', methods=['POST'])(update_price)
 bp_admin.route('/monthly_report', methods=['GET'])(get_monthly_report)
+bp_admin.route('/add_restaurant', methods=['POST'])(add_restaurant)

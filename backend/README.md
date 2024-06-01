@@ -18,6 +18,7 @@
     - notify unpaid user
     - get all menu
     - update menu
+    - add restaurant
 ## login
 > done
 - endpoint: `/login`
@@ -415,6 +416,29 @@
 ```
 {
     "status": "success|fail",
+    "error": "error msg" // if status is fail
+}
+```
+
+### add restaurant
+> done
+- endpoint: `/admin/add_restaurant`
+- method: POST
+- request
+```
+{
+    "restaurant_name": ,
+    "phone": ,
+    "open_time": "HH:SS",
+    "close_time": "HH:SS",
+    "description": 
+}
+```
+- response
+```
+{
+    "status": "success|fail",
+    "restaurant_id": , // if status is success
     "error": "error msg" // if status is fail
 }
 ```

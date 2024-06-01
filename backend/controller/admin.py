@@ -3,7 +3,7 @@ from random import shuffle
 from model.models import Dish_Info, db, Restaurant_Info, Orders
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import func
 import os
 
@@ -200,4 +200,24 @@ def get_monthly_report():
         for row in data:
             file.write(f"{row['restaurant_name']}, {row['total_revenue']}, {row['order_count']}, {row['average_order_price']}, {row['restaurant_rating']}, {row['average_dish_rating']}\n")
     return send_from_directory("monthly_report", f"{year}_{month}.csv", as_attachment=True)
-        
+
+
+@jwt_required()
+def add_restaurant():
+    if not check_permission('admin'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    restaurant_name = request.get_json().get('restaurant_name')
+    phone = request.get_json().get('phone')
+    open_time = request.get_json().get('open_time')
+    close_time = request.get_json().get('close_time')
+    description = request.get_json().get('description')
+    new_restaurant = Restaurant_Info(
+        RestaurantName = restaurant_name, PhoneNumber = phone,
+        OpenTime = timedelta(hours=int(open_time.split(":")[0]), minutes=int(open_time.split(":")[1])), 
+        CloseTime = timedelta(hours=int(close_time.split(":")[0]), minutes=int(close_time.split(":")[1])),
+        Description = description, Rating = 0,
+        RatingCnt = 0, Picture = ''
+    )
+    db.session.add(new_restaurant)
+    db.session.commit()
+    return jsonify({'status': 'success', 'restaurant_id': new_restaurant.RestaurantID})
