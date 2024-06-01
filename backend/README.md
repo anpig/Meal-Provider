@@ -315,14 +315,20 @@
 }
 ```
 ### get monthly report
-> to do
+> done
 - endpoint: `/admin/monthly_report`
 - method: `GET`
-- response
+- you can only request a monthly report after the whole month ends
+- request: 
 ```
+{
+    "year": ,
+    "month": 
+}
 ```
+- response: automatically download the csv file
 ### notify unpaid user
-> to do
+> done
 > how? To be discussed
 - set a flag in login api
 

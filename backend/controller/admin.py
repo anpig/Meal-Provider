@@ -1,8 +1,10 @@
-from flask import request, jsonify
+from flask import request, jsonify, send_from_directory
 from random import shuffle
-from model.models import Dish_Info, db, Restaurant_Info
+from model.models import Dish_Info, db, Restaurant_Info, Orders
 from flask_jwt_extended import jwt_required
 from controller.user_auth import check_permission, get_restaurant_id
+from datetime import datetime
+from sqlalchemy import func
 import os
 
 UPLOAD_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -138,3 +140,62 @@ def update_price():
     dish.Price = price
     db.session.commit()
     return jsonify({'status': 'success'})
+
+@jwt_required()
+def get_monthly_report():
+    if not check_permission('admin'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    month = request.get_json().get('month')
+    year = request.get_json().get('year')
+    now = datetime.now()
+    if month < 1 or month > 12 or (year == now.year and month > now.month):
+        return jsonify({'status': 'fail', 'error': 'Invalid month'})
+    if year > now.year:
+        return jsonify({'status': 'fail', 'error': 'Invalid year'})
+    if os.path.exists(f"monthly_report/{year}_{month}.csv"):
+        return send_from_directory("monthly_report", f"{year}_{month}.csv", as_attachment=True)
+    
+    result = db.session.query(
+        Orders.RestaurantID, 
+        Restaurant_Info.RestaurantName,
+        func.sum(Orders.TotalPrice).label('total_revenue'),
+        func.count(Orders.RestaurantID).label('order_count'),
+        Restaurant_Info.Rating.label('restaurant_rating'),) \
+    .join(Restaurant_Info, Orders.RestaurantID == Restaurant_Info.RestaurantID, isouter=True) \
+    .filter(Orders.OrderTime >= datetime(year, month, 1), Orders.OrderTime < datetime(year, month + 1, 1), Orders.Finish == True) \
+    .group_by(Orders.RestaurantID) \
+    .all()
+
+    result_ = db.session.query(
+        Dish_Info.RestaurantID,
+        func.avg(Dish_Info.Rating).label('average_rating')
+    ).group_by(Dish_Info.RestaurantID).all()
+
+    dishes_rating = {}
+    for rating in result_:
+        dishes_rating[rating[0]] = rating[1]
+
+    # print(type(result))
+    # print(type(result[0]))
+    # print(result)
+    data = []
+    for row in result:
+        data.append({
+            'restaurant_id': row[0],
+            'restaurant_name': row[1],
+            'total_revenue': row[2],
+            'order_count': row[3],
+            'average_order_price': round(row[2] / row[3], 3),
+            'restaurant_rating': round(row[4], 1),
+            'average_dish_rating': round(dishes_rating[row[0]], 1)
+        })
+    print(data)
+    # return jsonify({'status': 'success'})
+
+    # geneate monthly report  
+    with open(f"monthly_report/{year}_{month}.csv", 'w') as file:
+        file.write("餐廳, 總營收, 訂單總數, 訂單平均價格, 餐廳評分, 餐點平均評分\n")
+        for row in data:
+            file.write(f"{row['restaurant_name']}, {row['total_revenue']}, {row['order_count']}, {row['average_order_price']}, {row['restaurant_rating']}, {row['average_dish_rating']}\n")
+    return send_from_directory("monthly_report", f"{year}_{month}.csv", as_attachment=True)
+        
