@@ -98,3 +98,16 @@ def finish_order(order_id):
         dish_info.TimesOfOrder += dish.Number
     db.session.commit()
     return jsonify({'status': 'success'})
+
+@jwt_required()
+def get_worker_info(id):
+    if not check_permission('restaurant'):
+        return jsonify({'error': 'Permission Denied'}), 403
+    worker = Staff_Info.query.filter_by(StaffID=id).first()
+    if not worker:
+        return jsonify({'error': 'Worker not found'}), 404
+    return jsonify({
+        'staff_id': worker.StaffID,
+        'staff_name': worker.StaffName,
+        'phone': worker.PhoneNumber
+    })

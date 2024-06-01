@@ -162,7 +162,10 @@ def get_monthly_report():
         func.count(Orders.RestaurantID).label('order_count'),
         Restaurant_Info.Rating.label('restaurant_rating'),) \
     .join(Restaurant_Info, Orders.RestaurantID == Restaurant_Info.RestaurantID, isouter=True) \
-    .filter(Orders.OrderTime >= datetime(year, month, 1), Orders.OrderTime < datetime(year, month + 1, 1), Orders.Finish == True) \
+    .filter(
+        Orders.OrderTime >= datetime(year, month, 1), 
+        Orders.OrderTime < datetime(year, month + 1, 1), 
+        Orders.Finish == True) \
     .group_by(Orders.RestaurantID) \
     .all()
 
@@ -190,7 +193,6 @@ def get_monthly_report():
             'average_dish_rating': round(dishes_rating[row[0]], 1)
         })
     print(data)
-    # return jsonify({'status': 'success'})
 
     # geneate monthly report  
     with open(f"monthly_report/{year}_{month}.csv", 'w') as file:
