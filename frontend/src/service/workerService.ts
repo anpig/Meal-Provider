@@ -1,4 +1,4 @@
-import type { order, restaurant } from '../types/worker'
+import type { order, restaurant, orderReview } from '../types/worker'
 
 export default class workerService {
   static async getRestaurantList(token: string): Promise<any[]> {
@@ -26,5 +26,38 @@ export default class workerService {
     })
     const data = await response.json()
     return data.orders
+  }
+
+  // rating order by user
+  static async reviewOrder(token: string, order_id: number, overAllRating: number, order: order): Promise<void> {
+    const data = {
+      order_id: order_id,
+      overall_rating: overAllRating, // 1 to 5
+      dishes_rating: [] as { dish_id: number; rating: number }[]
+    }
+    for (let i = 0; i < order.dishes.length; i++) {
+      data.dishes_rating.push({
+        dish_id: order.dishes[i].dish_id,
+        rating: 1
+      } as { dish_id: number; rating: number }) // Add type annotation here
+    }
+    console.log(data)
+    const response1 = await fetch('/api/main/history', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+    console.log(await response1.json())
+    const response = await fetch('/api/main/add_review', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    console.log(token)
+    console.log(response)
+    console.log(await response.json())
   }
 }

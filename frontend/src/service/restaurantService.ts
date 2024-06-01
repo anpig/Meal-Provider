@@ -1,4 +1,4 @@
-import type { restaurant, order } from '../types/restaurant'
+import type { restaurant, chart, order } from '../types/restaurant'
 
 export default class restaurantService {
   static async getRestaurant(token: string): Promise<restaurant> {
@@ -27,7 +27,7 @@ export default class restaurantService {
       return false
     }
   }
-  static async addOrder(token: string, order: order): Promise<void> {
+  static async addOrder(token: string, order: chart): Promise<void> {
     const response = await fetch('/api/pos/add_order', {
       method: 'POST',
       headers: {
@@ -37,5 +37,25 @@ export default class restaurantService {
       body: JSON.stringify(order)
     })
     return
+  }
+
+  static async getHistoryOrder(token: string): Promise<order[]> {
+    const response = await fetch('/api/pos/get_order', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+    const data = (await response.json()) as {
+      orders: order[]
+    }
+    return data.orders
+  }
+  static async finishOrder(token: string, order_id: number): Promise<void> {
+    const response = await fetch(`/finish/${order_id}`, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
   }
 }

@@ -6,7 +6,8 @@ export const useOrderStore = defineStore({
   id: 'userOrder',
   state: () => ({
     orders: [] as order[],
-    selectIndex: 0
+    selectIndex: 0,
+    overAllRating: 0
   }),
   persist: true,
   actions: {

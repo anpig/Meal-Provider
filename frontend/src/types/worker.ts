@@ -41,4 +41,13 @@ interface order {
   dishes: dish[]
 }
 
-export { type restaurant, type meal, type dish, type order }
+interface orderReview {
+  order_id: number
+  overall_rating: number
+  dishes_rating: {
+    dish_id: number
+    rating: number
+  }[]
+}
+
+export { type restaurant, type meal, type dish, type order, type orderReview }
