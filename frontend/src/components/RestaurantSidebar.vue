@@ -1,11 +1,11 @@
 <template>
   <div
-    class="bg-opacity-30 shadow-blue-gray-900/5 relative w-full max-w-[20rem] flex-col rounded-xl bg-amber-100 bg-clip-border p-4 text-gray-700 shadow-xl"
+    class="shadow-blue-gray-900/5 relative w-full max-w-[20rem] flex-col rounded-xl bg-amber-100 bg-opacity-30 bg-clip-border p-4 text-gray-700 shadow-xl"
   >
-    <nav class="text-blue-gray-700 flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal">
+    <nav class="text-blue-gray-700 flex max-w-[16rem] flex-col gap-1 p-2 font-sans text-base font-normal">
       <router-link
         to="/restaurant"
-        class="hover:bg-white hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-100"
+        class="hover:text-blue-gray-900 hove:border focus:bg-blue-gray-50 focus:text-blue-gray-900 active:bg-blue-gray-50 active:text-blue-gray-900 flex w-full items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-slate-300 hover:bg-opacity-80 focus:bg-opacity-80 active:bg-opacity-100"
       >
         <div class="mr-4 grid place-items-center">
           <svg

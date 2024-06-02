@@ -5,7 +5,7 @@
     <div class="flex flex-col-reverse lg:flex-row">
       <RestaurantSidebar class="min-h-screen w-full justify-start shadow-lg lg:w-1/6"></RestaurantSidebar>
       <!-- left section -->
-      <div class="min-h-screen w-full bg-gray-50 lg:w-3/6">
+      <div class="w-full bg-gray-50 lg:w-4/6">
         <!-- header -->
         <div class="mt-5 flex flex-row items-center justify-between px-5">
           <div class="text-gray-800">
