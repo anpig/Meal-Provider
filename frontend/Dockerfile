@@ -3,7 +3,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 RUN npm install -g http-server
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9.0.6 
 
 WORKDIR /app
 
