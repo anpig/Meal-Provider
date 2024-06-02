@@ -27,8 +27,9 @@ export default defineConfig({
     // https://vitejs.dev/config/server-options.html#server-proxy
     // forward /api to a backend server on http://localhost:9487
     proxy: {
-      '/test': {
-        target: 'http://localhost:5000',
+      '/api': {
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        target: 'http://localhost:5000/',
       }
     }
   }
