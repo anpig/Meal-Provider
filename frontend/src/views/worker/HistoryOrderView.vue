@@ -1,225 +1,245 @@
 <template>
-  <RateOrderDialog v-if="showDialog" @close="close()"></RateOrderDialog>
+  <RateOrderDialog v-if="showDialog" @close="submitReview()"></RateOrderDialog>
   <div class="mx-auto bg-white">
     <div class="flex flex-col-reverse lg:flex-row">
       <WorkerSidebar class="min-h-screen w-full shadow-lg lg:w-1/6"></WorkerSidebar>
-      <div class="mx-auto min-h-screen max-w-7xl px-4 py-16 sm:px-6 lg:w-5/6 lg:px-8 lg:pb-24">
-        <div class="max-w-xl">
+      <div class="w-full lg:w-5/6">
+        
+        <div class="px-4 py-4 md:px-10 md:py-7">
           <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Order history</h1>
-          <!-- <p class="mt-2 text-sm text-gray-500">Check the status of recent orders, manage returns, and download invoices.</p> -->
         </div>
-
-        <div class="mt-16">
-          <div class="space-y-20">
-            <div v-for="order in orders">
-              <div
-                class="rounded-lg bg-gray-100 px-4 py-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 sm:px-6 lg:space-x-8"
-                v-if="order.reviewed === true"
+        <div class="bg-white px-4 py-4 md:px-8 md:py-7 xl:px-10">
+          <div class="items-center justify-between sm:flex">
+            <div class="flex items-center">
+              <a
+                class="rounded-full focus:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-800"
+                href=" javascript:void(0)"
               >
-                <dl
-                  class="flex-auto space-y-6 divide-y divide-gray-200 text-sm text-gray-600 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:space-y-0 sm:divide-y-0 lg:w-1/2 lg:flex-none lg:gap-x-8"
-                >
-                  <div class="flex justify-between sm:block">
-                    <dt class="font-medium text-gray-900">Date placed</dt>
-                    <dd class="sm:mt-1">
-                      <time>{{ order.order_time }}</time>
-                    </dd>
-                  </div>
-                  <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
-                    <dt>Total amount</dt>
-                    <dd class="sm:mt-1">${{ order.total_price }}</dd>
-                  </div>
-                </dl>
-                <a
-                  href="#"
-                  class="mt-6 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto"
-                >
-                  View Restaurant
-                </a>
-              </div>
-              <div
-                class="rounded-lg bg-gray-100 px-4 py-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 sm:px-6 lg:space-x-8"
-                v-else
+                <div class="rounded-full bg-indigo-100 px-8 py-2 text-indigo-700">
+                  <p>All</p>
+                </div>
+              </a>
+              <a
+                class="ml-4 rounded-full focus:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-800 sm:ml-8"
+                href="javascript:void(0)"
               >
-                <dl
-                  class="flex-auto space-y-6 divide-y divide-gray-200 text-sm text-gray-600 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:space-y-0 sm:divide-y-0 lg:w-1/2 lg:flex-none lg:gap-x-8"
-                >
-                  <div class="flex justify-between sm:block">
-                    <dt class="font-medium text-gray-900">Date placed</dt>
-                    <dd class="sm:mt-1">
-                      <time>{{ order.order_time }}</time>
-                    </dd>
-                  </div>
-                  <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
-                    <dt>Total amount</dt>
-                    <dd class="sm:mt-1">${{ order.total_price }}</dd>
-                  </div>
-                </dl>
-                <button
-                  class="mt-6 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto"
-                  @click="test()"
-                >
-                  Rate Order
-                </button>
-                <a
-                  href="#"
-                  class="mt-6 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto"
-                >
-                  View Restaurant
-                </a>
-              </div>
+                <div class="rounded-full px-8 py-2 text-gray-600 hover:bg-indigo-100 hover:text-indigo-700">
+                  <p>Done</p>
+                </div>
+              </a>
+              <a
+                class="ml-4 rounded-full focus:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-800 sm:ml-8"
+                href="javascript:void(0)"
+              >
+                <div class="rounded-full px-8 py-2 text-gray-600 hover:bg-indigo-100 hover:text-indigo-700">
+                  <p>Pending</p>
+                </div>
+              </a>
+            </div>
+            <div
+              class="flex cursor-pointer items-center rounded bg-gray-200 px-4 py-3 text-sm font-medium leading-none text-gray-600 hover:bg-gray-300"
+            >
+              <p>Sort By:</p>
+              <select aria-label="select" class="ml-1 bg-transparent focus:text-indigo-600 focus:outline-none">
+                <option class="text-sm text-indigo-800">Latest</option>
+                <option class="text-sm text-indigo-800">Oldest</option>
+                <option class="text-sm text-indigo-800">Latest</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-7 overflow-x-auto">
+            <table class="w-full whitespace-nowrap">
+              <tbody>
 
-              <table class="mt-4 w-full text-gray-500 sm:mt-6">
-                <caption class="sr-only">
-                  Products
-                </caption>
-                <thead class="sr-only text-left text-sm text-gray-500 sm:not-sr-only">
-                  <tr>
-                    <th scope="col" class="py-3 pr-8 font-normal sm:w-2/5 lg:w-1/3">Product</th>
-                    <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Number</th>
-                    <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Rating</th>
-                    <th scope="col" class="w-0 py-3 pr-8 text-right font-normal">Price</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 border-b border-gray-200 text-sm sm:border-t">
-                  <tr v-for="dish in order.dishes">
-                    <td class="py-6 pr-8">
-                      <div class="flex items-center">
-                        <!-- <img
-                          src="https://source.unsplash.com/sc5sTPMrVfk/600x600"
-                          alt="Detail of mechanical pencil tip with machined black steel shaft and chrome lead tip."
-                          class="mr-6 h-16 w-16 rounded object-cover object-center"
-                        /> -->
-                        <div>
-                          <div class="font-medium text-gray-900">{{ dish.dish_name }}</div>
+                <tr tabindex="0" class="h-16 rounded border border-gray-300 focus:outline-none ">
+                  <td class="pl-5"></td>
+                  <td class="pl-5">
+                    <div class="flex items-center">
+                      <p class="mr-2 text-base font-medium leading-none text-gray-700">
+                        餐廳名稱
+                      </p>
+                    </div>
+                  </td>
+                  <td class="pl-24">
+                    <div class="flex items-center">
+                      <p class="ml-2 text-sm leading-none text-gray-600">
+                        總共消費金額
+                      </p>
+                    </div>
+                  </td>
+                  <td class="pl-5">
+                  </td>
+                  <td class="pl-5">
+                  </td>
+                  <td class="pl-5">
+                    <div class="flex items-center">
+                      <p class="ml-2 text-sm leading-none text-gray-600">餐廳評分</p>
+                    </div>
+                  </td>
+                  <td class="pl">
+
+                  </td>
+
+                  <td>
+                    <div class="flex items-center">
+                      <p class="ml-2 text-sm leading-none text-gray-600">評分此餐廳</p>
+                    </div>
+                  </td>
+                  <td class="pl-4">
+                    <button
+                      class="rounded bg-gray-100 px-5 py-3 text-sm leading-none text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2"
+                    >
+                      View
+                    </button>
+                  </td>
+                  <td>
+                    <div class="relative px-5 pt-2">
+                      <button
+                        class="rounded-md focus:outline-none focus:ring-2"
+                        onclick="dropdownFunction(this)"
+                        role="button"
+                        aria-label="option"
+                      >
+                      <svg
+                        data-accordion-icon
+                        class="h-3 w-3 shrink-0 rotate-180"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5 5 1 1 5"
+                        />
+                      </svg>
+                      </button>
+                      <div class="dropdown-content absolute right-0 z-30 mr-6 hidden w-24 bg-white shadow">
+                        <div
+                          tabindex="0"
+                          class="w-full cursor-pointer px-4 py-4 text-xs hover:bg-indigo-700 hover:text-white focus:text-indigo-600 focus:outline-none"
+                        >
+                          <p>Edit</p>
+                        </div>
+                        <div
+                          tabindex="0"
+                          class="w-full cursor-pointer px-4 py-4 text-xs hover:bg-indigo-700 hover:text-white focus:text-indigo-600 focus:outline-none"
+                        >
+                          <p>Delete</p>
                         </div>
                       </div>
-                    </td>
-                    <td class="py-6 pr-8 sm:table-cell">{{ dish.number }}</td>
-                    <td class="py-6 pr-8 sm:table-cell">
-                      <div class="flex items-center" v-if="order.reviewed === true">
+                    </div>
+                  </td>
+                </tr>
+                <tr v-for="order in orders" class="h-16 rounded border border-gray-300 focus:outline-none">
+                  <td class="pl-4">index</td>
+                  <td class="pl-5">
+                    <div class="flex items-center">
+                      <p class="mr-2 text-base font-medium leading-none text-gray-700">
+                        {{ order.restaurant_id }}
+                      </p>
+                    </div>
+                  </td>
+                  <td class="pl-24">
+                    <div class="flex items-center">
+                      <p class="ml-2 text-sm leading-none text-gray-600">
+                        $ {{ order.total_price }}
+                      </p>
+                    </div>
+                  </td>
+                  <td class="pl-5">
+                  </td>
+                  <td class="pl-5">
+                  </td>
+                  <td class="pl-5">
+                    <div class="flex items-center">
+                      <p class="ml-2 text-sm leading-none text-gray-600">
+                        {{ order.overall_rating }}
+                      </p>
+                    </div>
+                  </td>
+                  <td class="pl">
+
+                  </td>
+
+                  <td>
+                    <button
+                      class="rounded bg-gray-100 px-5 py-3 text-sm leading-none text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2"
+                    >
+                      rate order
+                    </button>
+                  </td>
+                  <td class="pl-4">
+                    <button
+                      class="rounded bg-gray-100 px-5 py-3 text-sm leading-none text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2"
+                    >
+                      View
+                    </button>
+                  </td>
+                  <td>
+                    <div class="relative px-5 pt-2">
+                      <button
+                        class="rounded-md focus:outline-none focus:ring-2"
+                        onclick="dropdownFunction(this)"
+                        role="button"
+                        aria-label="option"
+                      >
                         <svg
-                          class="me-1 h-4 w-4 text-yellow-300"
-                          aria-hidden="true"
+                          class="dropbtn"
+                          onclick="dropdownFunction(this)"
                           xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          viewBox="0 0 22 20"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
                         >
                           <path
-                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                          />
+                            d="M4.16667 10.8332C4.62691 10.8332 5 10.4601 5 9.99984C5 9.5396 4.62691 9.1665 4.16667 9.1665C3.70643 9.1665 3.33334 9.5396 3.33334 9.99984C3.33334 10.4601 3.70643 10.8332 4.16667 10.8332Z"
+                            stroke="#9CA3AF"
+                            stroke-width="1.25"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
+                          <path
+                            d="M10 10.8332C10.4602 10.8332 10.8333 10.4601 10.8333 9.99984C10.8333 9.5396 10.4602 9.1665 10 9.1665C9.53976 9.1665 9.16666 9.5396 9.16666 9.99984C9.16666 10.4601 9.53976 10.8332 10 10.8332Z"
+                            stroke="#9CA3AF"
+                            stroke-width="1.25"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
+                          <path
+                            d="M15.8333 10.8332C16.2936 10.8332 16.6667 10.4601 16.6667 9.99984C16.6667 9.5396 16.2936 9.1665 15.8333 9.1665C15.3731 9.1665 15 9.5396 15 9.99984C15 10.4601 15.3731 10.8332 15.8333 10.8332Z"
+                            stroke="#9CA3AF"
+                            stroke-width="1.25"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
                         </svg>
-                        <p class="ms-2 text-sm font-bold text-gray-900">{{ dish.rating }}</p>
+                      </button>
+                      <div class="dropdown-content absolute right-0 z-30 mr-6 hidden w-24 bg-white shadow">
+                        <div
+                          tabindex="0"
+                          class="w-full cursor-pointer px-4 py-4 text-xs hover:bg-indigo-700 hover:text-white focus:text-indigo-600 focus:outline-none"
+                        >
+                          <p>Edit</p>
+                        </div>
+                        <div
+                          tabindex="0"
+                          class="w-full cursor-pointer px-4 py-4 text-xs hover:bg-indigo-700 hover:text-white focus:text-indigo-600 focus:outline-none"
+                        >
+                          <p>Delete</p>
+                        </div>
                       </div>
-                    </td>
-                    <td class="py-3 pr-8 text-right sm:table-cell">$ {{ dish.price }}</td>
-                  </tr>
-
-                  <!-- More products... -->
-                </tbody>
-              </table>
-            </div>
-
-            <!-- More orders... -->
+                    </div>
+                  </td>
+                </tr>
+        
+              </tbody>
+            </table>
           </div>
-        </div>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table class="w-full text-left text-sm rtl:text-right">
-            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
-              <tr>
-                <th scope="col" class="px-6 py-3">Product name</th>
-                <th scope="col" class="px-6 py-3">
-                  <div class="flex items-center">
-                    Color
-                    <a href="#"
-                      ><svg
-                        class="ms-1.5 h-3 w-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                        /></svg>
-                      </a>
-                  </div>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  <div class="flex items-center">
-                    Category
-                    <a href="#"
-                      ><svg
-                        class="ms-1.5 h-3 w-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                        /></svg>
-                      </a>
-                  </div>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  <div class="flex items-center">
-                    Price
-                    <a href="#"
-                      ><svg
-                        class="ms-1.5 h-3 w-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                        /></svg>
-                      </a>
-                  </div>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  <span class="sr-only">Edit</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-                <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">Silver</td>
-                <td class="px-6 py-4">Laptop</td>
-                <td class="px-6 py-4">$2999</td>
-                <td class="px-6 py-4 text-right">
-                  <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                </td>
-              </tr>
-              <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-                <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">White</td>
-                <td class="px-6 py-4">Laptop PC</td>
-                <td class="px-6 py-4">$1999</td>
-                <td class="px-6 py-4 text-right">
-                  <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                </td>
-              </tr>
-              <tr class="bg-white dark:bg-gray-800">
-                <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">Black</td>
-                <td class="px-6 py-4">Accessories</td>
-                <td class="px-6 py-4">$99</td>
-                <td class="px-6 py-4 text-right">
-                  <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
@@ -239,7 +259,7 @@ const orderStore = useOrderStore()
 const userStore = useUserStore()
 const { userInfo } = storeToRefs(userStore)
 const showDialog = ref(false)
-const { orders } = storeToRefs(orderStore)
+const { orders, selectIndex, overAllRating } = storeToRefs(orderStore)
 
 onMounted(async () => {
   const OuthResult = await userService.userCheckOuth()
@@ -260,7 +280,11 @@ const test = () => {
   showDialog.value = true
 }
 
-const close = () => {
+const submitReview = () => {
+  const orderID = orders.value[selectIndex.value].order_id
+  workerService.reviewOrder(userInfo.value.outh_token, orderID, overAllRating.value, orders.value[selectIndex.value])
+  console.log(selectIndex.value)
+  console.log(overAllRating.value)
   showDialog.value = false
 }
 </script>
