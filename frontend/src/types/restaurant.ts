@@ -25,10 +25,11 @@ interface restaurant {
 }
 
 interface order {
+  customer_id: number,
   order_id: number
   order_time: string
   restaurant_id: number
-  total_price: number
+  price: number
   finished: boolean
   reviewed: number
   overall_rating: number
