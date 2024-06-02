@@ -93,4 +93,3 @@ const getRestaurantList = async () => {
 </script>
   
 <style></style>
-  
