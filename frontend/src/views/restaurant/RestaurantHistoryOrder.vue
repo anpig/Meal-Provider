@@ -43,8 +43,7 @@
                 <div class="rounded-full px-8 py-2 text-gray-600 hover:bg-indigo-100 hover:text-indigo-700">
                   <p>Pending</p>
                 </div>
-              </a>
-             
+              </a>           
             </div>
             <button
               onclick="popuphandler(true)"
@@ -93,9 +92,7 @@
                         value="" 
                         class="h-full w-full text-blue-600 bg-gray-100 border-gray-300 rounded"
                         @click= "finishOrder(order.order_id)"
-                      >
-                        
-                        
+                      >   
                       </div>
                     </div>
                   </td>
