@@ -43,8 +43,14 @@
                 <div class="rounded-full px-8 py-2 text-gray-600 hover:bg-indigo-100 hover:text-indigo-700">
                   <p>Pending</p>
                 </div>
-              </a>
+              </a>           
             </div>
+            <button
+              onclick="popuphandler(true)"
+              class="mt-4 inline-flex items-start justify-start rounded bg-indigo-700 px-6 py-3 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 sm:mt-0"
+            >
+              <p class="text-sm font-medium leading-none text-white">Add Task</p>
+            </button>
           </div>
           <div class="mt-7 overflow-x-auto">
             <table class="w-full whitespace-nowrap">
@@ -82,29 +88,11 @@
                       <div
                         class="relative flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-sm bg-gray-200"
                       >
-                        <input
-                          placeholder="checkbox"
-                          type="checkbox"
-                          class="checkbox absolute h-full w-full cursor-pointer opacity-0 focus:opacity-100"
-                          @click="test(order.customer_id)"
-                        />
-                        <div class="check-icon hidden rounded-sm bg-indigo-700 text-white">
-                          <svg
-                            class="icon icon-tabler icon-tabler-check"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z"></path>
-                            <path d="M5 12l5 5l10 -10"></path>
-                          </svg>
-                        </div>
+                      <input type="checkbox" 
+                        value="" 
+                        class="h-full w-full text-blue-600 bg-gray-100 border-gray-300 rounded"
+                        @click= "finishOrder(order.order_id)"
+                      >   
                       </div>
                     </div>
                   </td>
@@ -149,7 +137,6 @@ import { storeToRefs } from 'pinia'
 import restaurantService from '@/service/restaurantService'
 import type { restaurant, meal, order } from '@/types/restaurant'
 import { useUserStore } from '@/store/user'
-import router from '@/router'
 
 const userStore = useUserStore()
 const { userInfo } = storeToRefs(userStore)
@@ -161,9 +148,8 @@ onMounted(async () => {
 
 })
 
-const test = (id: string) => {
+const finishOrder = (id: number) => {
   console.log(id)
 }
-
 </script>
 
