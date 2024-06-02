@@ -80,16 +80,19 @@ def add_review():
 def history():
     user_id = get_user_id()
     start_date = datetime(year=datetime.now().year, month=datetime.now().month, day=1)
-    orders = Orders.query.filter_by(CustomerID=user_id) \
+    orders = db.session.query(Orders, Restaurant_Info) \
+        .join(Restaurant_Info, Orders.RestaurantID == Restaurant_Info.RestaurantID, isouter=True) \
+        .filter(Orders.CustomerID == user_id) \
         .filter(Orders.OrderTime >= start_date) \
-        .filter(Orders.OrderTime <= datetime.now()).all()
+        .filter(Orders.OrderTime <= datetime.now()) \
+        .all()
     order_list = []
     for order in orders:
         ordered_dishes = db.session.query(Order_Dish, Dish_Info, Review) \
             .join(Dish_Info, Order_Dish.DishID == Dish_Info.DishID, isouter=True) \
             .join(Review, (Order_Dish.DishID == Review.DishID) & (Order_Dish.OrderID == Review.OrderID), isouter=True) \
-            .filter(Order_Dish.OrderID == order.OrderID).all()
-        overall_rating = Review.query.filter_by(OrderID=order.OrderID, DishID=0).first()
+            .filter(Order_Dish.OrderID == order[0].OrderID).all()
+        overall_rating = Review.query.filter_by(OrderID=order[0].OrderID, DishID=0).first()
         dish_list = [{
             "dish_id": dish[0].DishID,
             "dish_name": dish[1].Name,
@@ -98,12 +101,13 @@ def history():
             "rating": dish[2].Rating if dish[2] is not None else -1
         } for dish in ordered_dishes]
         order_list.append({
-            "order_id": order.OrderID,
-            'order_time': order.OrderTime.strftime("%Y-%m-%d %H:%M:%S"),
-            'restaurant_id': order.RestaurantID,
-            'total_price': order.TotalPrice,
-            'finished': order.Finish,
-            'reviewed': order.Reviewed,
+            "order_id": order[0].OrderID,
+            'order_time': order[0].OrderTime.strftime("%Y-%m-%d %H:%M:%S"),
+            'restaurant_id': order[0].RestaurantID,
+            'restaurant_name': order[1].RestaurantName,
+            'total_price': order[0].TotalPrice,
+            'finished': order[0].Finish,
+            'reviewed': order[0].Reviewed,
             'overall_rating': overall_rating.Rating if overall_rating is not None else -1,
             'dishes': dish_list
         })
